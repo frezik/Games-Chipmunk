@@ -13,3 +13,4 @@ typemap
 fallback/const-c.inc
 fallback/const-xs.inc
 lib/Games/Chipmunk.pm
+lib/Games/Chipmunk/cpVect.pm

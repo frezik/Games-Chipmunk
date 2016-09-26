@@ -336,257 +336,118 @@ __END__
 
 =head1 NAME
 
-Games::Chipmunk - Perl extension for blah blah blah
+Games::Chipmunk - Perl API for the Chipmunk 2D physics library
 
 =head1 SYNOPSIS
 
-  use Games::Chipmunk;
-  blah blah blah
+    use Games::Chipmunk;
+    use strict;
+    use warnings;
+
+    # cpVect is a 2D vector and cpv() is a shortcut for initializing them.
+    my $gravity = cpv(0, -100);
+
+    # Create an empty space.
+    my $space = cpSpaceNew();
+    cpSpaceSetGravity($space, $gravity);
+
+    # Add a static line segment shape for the ground.
+    # We'll make it slightly tilted so the ball will roll off.
+    # We attach it to space->staticBody to tell Chipmunk it shouldn't be movable.
+    my $ground = cpSegmentShapeNew(
+        cpSpaceGetStaticBody( $space ), cpv(-20, 5), cpv(20, -5), 0 );
+    cpShapeSetFriction($ground, 1);
+    cpSpaceAddShape($space, $ground);
+
+    # Now let's make a ball that falls onto the line and rolls off.
+    # First we need to make a cpBody to hold the physical properties of the object.
+    # These include the mass, position, velocity, angle, etc. of the object.
+    # Then we attach collision shapes to the cpBody to give it a size and shape.
+
+    my $radius = 5;
+    my $mass = 1;
+
+    # The moment of inertia is like mass for rotation
+    # Use the cpMomentFor*() functions to help you approximate it.
+    my $moment = cpMomentForCircle($mass, 0, $radius, $CPV_ZERO);
+
+    # The cpSpaceAdd*() functions return the thing that you are adding.
+    # It's convenient to create and add an object in one line.
+    my $ballBody = cpSpaceAddBody($space, cpBodyNew($mass, $moment));
+    cpBodySetPos($ballBody, cpv(0, 15));
+
+    # Now we create the collision shape for the ball.
+    # You can create multiple collision shapes that point to the same body.
+    # They will all be attached to the body and move around to follow it.
+    my $ballShape = cpSpaceAddShape($space, cpCircleShapeNew($ballBody, $radius, $CPV_ZERO));
+    cpShapeSetFriction($ballShape, 0.7);
+
+    # Now that it's all set up, we simulate all the objects in the space by
+    # stepping forward through time in small increments called steps.
+    # It is *highly* recommended to use a fixed size time step.
+    my $timeStep = 1.0/60.0;
+
+    # For our tests, we want to check that there was some kind of movement.
+    # Problem is, there might not be enough acceleration at the start to actually 
+    # move anything.  We'll just do a few runs to prime the system.
+    cpSpaceStep($space, $timeStep) for 1 .. 5;
+    for(my $time = $timeStep * 5; $time < 2; $time += $timeStep){
+        my $pos = cpBodyGetPos($ballBody);
+        my $vel = cpBodyGetVel($ballBody);
+        printf(
+            'Time is %5.2f. ballBody is at (%5.2f, %5.2f). Its velocity is (%5.2f, %5.2f)' . "\n",
+            $time, $pos->x, $pos->y, $vel->x, $vel->y
+        );
+
+        cpSpaceStep($space, $timeStep);
+    }
+
+    # Clean up our objects and exit!
+    cpShapeFree($ballShape);
+    cpBodyFree($ballBody);
+    cpShapeFree($ground);
+    cpSpaceFree($space);
 
 =head1 DESCRIPTION
 
-Stub documentation for Games::Chipmunk, created by h2xs. It looks like the
-author of the extension was negligent enough to leave the stub
-unedited.
+Chipmunk 2D is a physics library that supports fast, lightweight rigid body 
+physics for games or other simulations.
 
-Blah blah blah.
+This Perl module is a pretty straight implementation of the C library, so 
+the Chipmunk API docs should give you most of what you need. The complete API 
+is exported when you C<use> the module.
 
-=head2 EXPORT
+A few cavets:
 
-None by default.
+=over 4
 
-=head2 Exportable constants
+=item * The cpvzero global is accessible as C<$CPV_ZERO>
 
-  CP_ALLOW_PRIVATE_ACCESS
-  CP_BUFFER_BYTES
-  CP_VERSION_MAJOR
-  CP_VERSION_MINOR
-  CP_VERSION_RELEASE
-  cpcalloc
-  cpfree
-  cprealloc
+=item * Anything that requires a callback function is not yet implemented
 
-=head2 Exportable functions
+=item * The API is based on Chipmunk 6, because that's what Ubuntu currently installs from its package manager. There are incompatible changes in Chipmunk 7.
 
-  cpFloat cpArbiterGetDepth(const cpArbiter *arb, int i)
-  cpVect cpArbiterGetNormal(const cpArbiter *arb, int i)
-  cpVect cpArbiterGetPoint(const cpArbiter *arb, int i)
-  cpVect cpArbiterGetSurfaceVelocity(cpArbiter *arb)
-  void cpArbiterIgnore(cpArbiter *arb)
-  cpBool cpArbiterIsFirstContact(const cpArbiter *arb)
-  void cpArbiterSetContactPointSet(cpArbiter *arb, cpContactPointSet *set)
-  void cpArbiterSetSurfaceVelocity(cpArbiter *arb, cpVect vr)
-  cpVect cpArbiterTotalImpulse(const cpArbiter *arb)
-  cpVect cpArbiterTotalImpulseWithFriction(const cpArbiter *arb)
-  cpFloat cpArbiterTotalKE(const cpArbiter *arb)
-  cpFloat cpAreaForCircle(cpFloat r1, cpFloat r2)
-  cpFloat cpAreaForPoly(const int numVerts, const cpVect *verts)
-  cpFloat cpAreaForSegment(cpVect a, cpVect b, cpFloat r)
-  cpBBTree* cpBBTreeAlloc(void)
-  cpSpatialIndex* cpBBTreeInit(cpBBTree *tree, cpSpatialIndexBBFunc bbfunc, cpSpatialIndex *staticIndex)
-  cpSpatialIndex* cpBBTreeNew(cpSpatialIndexBBFunc bbfunc, cpSpatialIndex *staticIndex)
-  void cpBBTreeOptimize(cpSpatialIndex *index)
-  void cpBBTreeSetVelocityFunc(cpSpatialIndex *index, cpBBTreeVelocityFunc func)
-  cpVect cpBBWrapVect(const cpBB bb, const cpVect v)
-  void cpBodyActivate(cpBody *body)
-  void cpBodyActivateStatic(cpBody *body, cpShape *filter)
-  cpBody* cpBodyAlloc(void)
-  void cpBodyApplyForce(cpBody *body, const cpVect f, const cpVect r)
-  void cpBodyApplyImpulse(cpBody *body, const cpVect j, const cpVect r)
-  void cpBodyDestroy(cpBody *body)
-  void cpBodyEachArbiter(cpBody *body, cpBodyArbiterIteratorFunc func, void *data)
-  void cpBodyEachConstraint(cpBody *body, cpBodyConstraintIteratorFunc func, void *data)
-  void cpBodyEachShape(cpBody *body, cpBodyShapeIteratorFunc func, void *data)
-  void cpBodyFree(cpBody *body)
-  cpVect cpBodyGetVelAtLocalPoint(cpBody *body, cpVect point)
-  cpVect cpBodyGetVelAtWorldPoint(cpBody *body, cpVect point)
-  cpBody* cpBodyInit(cpBody *body, cpFloat m, cpFloat i)
-  cpBody* cpBodyInitStatic(cpBody *body)
-  cpBody* cpBodyNew(cpFloat m, cpFloat i)
-  cpBody* cpBodyNewStatic(void)
-  void cpBodyResetForces(cpBody *body)
-  void cpBodySanityCheck(cpBody *body)
-  void cpBodySetAngle(cpBody *body, cpFloat a)
-  void cpBodySetMass(cpBody *body, cpFloat m)
-  void cpBodySetMoment(cpBody *body, cpFloat i)
-  void cpBodySetPos(cpBody *body, cpVect pos)
-  void cpBodySleep(cpBody *body)
-  void cpBodySleepWithGroup(cpBody *body, cpBody *group)
-  void cpBodyUpdatePosition(cpBody *body, cpFloat dt)
-  void cpBodyUpdateVelocity(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
-  cpPolyShape* cpBoxShapeInit(cpPolyShape *poly, cpBody *body, cpFloat width, cpFloat height)
-  cpPolyShape* cpBoxShapeInit2(cpPolyShape *poly, cpBody *body, cpBB box)
-  cpShape* cpBoxShapeNew(cpBody *body, cpFloat width, cpFloat height)
-  cpShape* cpBoxShapeNew2(cpBody *body, cpBB box)
-  cpVect cpCentroidForPoly(const int numVerts, const cpVect *verts)
-  cpCircleShape* cpCircleShapeAlloc(void)
-  cpVect cpCircleShapeGetOffset(const cpShape *shape)
-  cpFloat cpCircleShapeGetRadius(const cpShape *shape)
-  cpCircleShape* cpCircleShapeInit(cpCircleShape *circle, cpBody *body, cpFloat radius, cpVect offset)
-  cpShape* cpCircleShapeNew(cpBody *body, cpFloat radius, cpVect offset)
-  void cpConstraintDestroy(cpConstraint *constraint)
-  void cpConstraintFree(cpConstraint *constraint)
-  int cpConvexHull(int count, cpVect *verts, cpVect *result, int *first, cpFloat tol)
-  cpDampedRotarySpring* cpDampedRotarySpringAlloc(void)
-  const cpConstraintClass *cpDampedRotarySpringGetClass(void)
-  cpDampedRotarySpring* cpDampedRotarySpringInit(cpDampedRotarySpring *joint, cpBody *a, cpBody *b, cpFloat restAngle, cpFloat stiffness, cpFloat damping)
-  cpConstraint* cpDampedRotarySpringNew(cpBody *a, cpBody *b, cpFloat restAngle, cpFloat stiffness, cpFloat damping)
-  cpDampedSpring* cpDampedSpringAlloc(void)
-  const cpConstraintClass *cpDampedSpringGetClass(void)
-  cpDampedSpring* cpDampedSpringInit(cpDampedSpring *joint, cpBody *a, cpBody *b, cpVect anchr1, cpVect anchr2, cpFloat restLength, cpFloat stiffness, cpFloat damping)
-  cpConstraint* cpDampedSpringNew(cpBody *a, cpBody *b, cpVect anchr1, cpVect anchr2, cpFloat restLength, cpFloat stiffness, cpFloat damping)
-  void cpEnableSegmentToSegmentCollisions(void)
-  cpGearJoint* cpGearJointAlloc(void)
-  const cpConstraintClass *cpGearJointGetClass(void)
-  cpGearJoint* cpGearJointInit(cpGearJoint *joint, cpBody *a, cpBody *b, cpFloat phase, cpFloat ratio)
-  cpConstraint* cpGearJointNew(cpBody *a, cpBody *b, cpFloat phase, cpFloat ratio)
-  void cpGearJointSetRatio(cpConstraint *constraint, cpFloat value)
-  cpGrooveJoint* cpGrooveJointAlloc(void)
-  const cpConstraintClass *cpGrooveJointGetClass(void)
-  cpGrooveJoint* cpGrooveJointInit(cpGrooveJoint *joint, cpBody *a, cpBody *b, cpVect groove_a, cpVect groove_b, cpVect anchr2)
-  cpConstraint* cpGrooveJointNew(cpBody *a, cpBody *b, cpVect groove_a, cpVect groove_b, cpVect anchr2)
-  void cpGrooveJointSetGrooveA(cpConstraint *constraint, cpVect value)
-  void cpGrooveJointSetGrooveB(cpConstraint *constraint, cpVect value)
-  void cpInitChipmunk(void)
-  void cpMessage(const char *condition, const char *file, int line, int isError, int isHardError, const char *message, ...)
-  cpFloat cpMomentForBox(cpFloat m, cpFloat width, cpFloat height)
-  cpFloat cpMomentForBox2(cpFloat m, cpBB box)
-  cpFloat cpMomentForCircle(cpFloat m, cpFloat r1, cpFloat r2, cpVect offset)
-  cpFloat cpMomentForPoly(cpFloat m, int numVerts, const cpVect *verts, cpVect offset)
-  cpFloat cpMomentForSegment(cpFloat m, cpVect a, cpVect b)
-  cpPinJoint* cpPinJointAlloc(void)
-  const cpConstraintClass *cpPinJointGetClass(void)
-  cpPinJoint* cpPinJointInit(cpPinJoint *joint, cpBody *a, cpBody *b, cpVect anchr1, cpVect anchr2)
-  cpConstraint* cpPinJointNew(cpBody *a, cpBody *b, cpVect anchr1, cpVect anchr2)
-  cpPivotJoint* cpPivotJointAlloc(void)
-  const cpConstraintClass *cpPivotJointGetClass(void)
-  cpPivotJoint* cpPivotJointInit(cpPivotJoint *joint, cpBody *a, cpBody *b, cpVect anchr1, cpVect anchr2)
-  cpConstraint* cpPivotJointNew(cpBody *a, cpBody *b, cpVect pivot)
-  cpConstraint* cpPivotJointNew2(cpBody *a, cpBody *b, cpVect anchr1, cpVect anchr2)
-  cpPolyShape* cpPolyShapeAlloc(void)
-  int cpPolyShapeGetNumVerts(cpShape *shape)
-  cpVect cpPolyShapeGetVert(cpShape *shape, int idx)
-  cpPolyShape* cpPolyShapeInit(cpPolyShape *poly, cpBody *body, int numVerts, const cpVect *verts, cpVect offset)
-  cpShape* cpPolyShapeNew(cpBody *body, int numVerts, cpVect *verts, cpVect offset)
-  cpBool cpPolyValidate(const cpVect *verts, const int numVerts)
-  cpRatchetJoint* cpRatchetJointAlloc(void)
-  const cpConstraintClass *cpRatchetJointGetClass(void)
-  cpRatchetJoint* cpRatchetJointInit(cpRatchetJoint *joint, cpBody *a, cpBody *b, cpFloat phase, cpFloat ratchet)
-  cpConstraint* cpRatchetJointNew(cpBody *a, cpBody *b, cpFloat phase, cpFloat ratchet)
-  void cpRecenterPoly(const int numVerts, cpVect *verts)
-  void cpResetShapeIdCounter(void)
-  cpRotaryLimitJoint* cpRotaryLimitJointAlloc(void)
-  const cpConstraintClass *cpRotaryLimitJointGetClass(void)
-  cpRotaryLimitJoint* cpRotaryLimitJointInit(cpRotaryLimitJoint *joint, cpBody *a, cpBody *b, cpFloat min, cpFloat max)
-  cpConstraint* cpRotaryLimitJointNew(cpBody *a, cpBody *b, cpFloat min, cpFloat max)
-  cpSegmentShape* cpSegmentShapeAlloc(void)
-  cpVect cpSegmentShapeGetA(const cpShape *shape)
-  cpVect cpSegmentShapeGetB(const cpShape *shape)
-  cpVect cpSegmentShapeGetNormal(const cpShape *shape)
-  cpFloat cpSegmentShapeGetRadius(const cpShape *shape)
-  cpSegmentShape* cpSegmentShapeInit(cpSegmentShape *seg, cpBody *body, cpVect a, cpVect b, cpFloat radius)
-  cpShape* cpSegmentShapeNew(cpBody *body, cpVect a, cpVect b, cpFloat radius)
-  void cpSegmentShapeSetNeighbors(cpShape *shape, cpVect prev, cpVect next)
-  cpBB cpShapeCacheBB(cpShape *shape)
-  void cpShapeDestroy(cpShape *shape)
-  void cpShapeFree(cpShape *shape)
-  cpFloat cpShapeNearestPointQuery(cpShape *shape, cpVect p, cpNearestPointQueryInfo *out)
-  cpBool cpShapePointQuery(cpShape *shape, cpVect p)
-  cpBool cpShapeSegmentQuery(cpShape *shape, cpVect a, cpVect b, cpSegmentQueryInfo *info)
-  void cpShapeSetBody(cpShape *shape, cpBody *body)
-  cpBB cpShapeUpdate(cpShape *shape, cpVect pos, cpVect rot)
-  cpSimpleMotor* cpSimpleMotorAlloc(void)
-  const cpConstraintClass *cpSimpleMotorGetClass(void)
-  cpSimpleMotor* cpSimpleMotorInit(cpSimpleMotor *joint, cpBody *a, cpBody *b, cpFloat rate)
-  cpConstraint* cpSimpleMotorNew(cpBody *a, cpBody *b, cpFloat rate)
-  cpSlideJoint* cpSlideJointAlloc(void)
-  const cpConstraintClass *cpSlideJointGetClass(void)
-  cpSlideJoint* cpSlideJointInit(cpSlideJoint *joint, cpBody *a, cpBody *b, cpVect anchr1, cpVect anchr2, cpFloat min, cpFloat max)
-  cpConstraint* cpSlideJointNew(cpBody *a, cpBody *b, cpVect anchr1, cpVect anchr2, cpFloat min, cpFloat max)
-  void cpSpaceActivateShapesTouchingShape(cpSpace *space, cpShape *shape)
-  cpBody* cpSpaceAddBody(cpSpace *space, cpBody *body)
-  void cpSpaceAddCollisionHandler(
- cpSpace *space,
- cpCollisionType a, cpCollisionType b,
- cpCollisionBeginFunc begin,
- cpCollisionPreSolveFunc preSolve,
- cpCollisionPostSolveFunc postSolve,
- cpCollisionSeparateFunc separate,
- void *data
-)
-  cpConstraint* cpSpaceAddConstraint(cpSpace *space, cpConstraint *constraint)
-  cpBool cpSpaceAddPostStepCallback(cpSpace *space, cpPostStepFunc func, void *key, void *data)
-  cpShape* cpSpaceAddShape(cpSpace *space, cpShape *shape)
-  cpShape* cpSpaceAddStaticShape(cpSpace *space, cpShape *shape)
-  cpSpace* cpSpaceAlloc(void)
-  void cpSpaceBBQuery(cpSpace *space, cpBB bb, cpLayers layers, cpGroup group, cpSpaceBBQueryFunc func, void *data)
-  cpBool cpSpaceContainsBody(cpSpace *space, cpBody *body)
-  cpBool cpSpaceContainsConstraint(cpSpace *space, cpConstraint *constraint)
-  cpBool cpSpaceContainsShape(cpSpace *space, cpShape *shape)
-  void cpSpaceConvertBodyToDynamic(cpSpace *space, cpBody *body, cpFloat mass, cpFloat moment)
-  void cpSpaceConvertBodyToStatic(cpSpace *space, cpBody *body)
-  void cpSpaceDestroy(cpSpace *space)
-  void cpSpaceEachBody(cpSpace *space, cpSpaceBodyIteratorFunc func, void *data)
-  void cpSpaceEachConstraint(cpSpace *space, cpSpaceConstraintIteratorFunc func, void *data)
-  void cpSpaceEachShape(cpSpace *space, cpSpaceShapeIteratorFunc func, void *data)
-  void cpSpaceFree(cpSpace *space)
-  cpSpaceHash* cpSpaceHashAlloc(void)
-  cpSpatialIndex* cpSpaceHashInit(cpSpaceHash *hash, cpFloat celldim, int numcells, cpSpatialIndexBBFunc bbfunc, cpSpatialIndex *staticIndex)
-  cpSpatialIndex* cpSpaceHashNew(cpFloat celldim, int cells, cpSpatialIndexBBFunc bbfunc, cpSpatialIndex *staticIndex)
-  void cpSpaceHashResize(cpSpaceHash *hash, cpFloat celldim, int numcells)
-  cpSpace* cpSpaceInit(cpSpace *space)
-  void cpSpaceNearestPointQuery(cpSpace *space, cpVect point, cpFloat maxDistance, cpLayers layers, cpGroup group, cpSpaceNearestPointQueryFunc func, void *data)
-  cpShape *cpSpaceNearestPointQueryNearest(cpSpace *space, cpVect point, cpFloat maxDistance, cpLayers layers, cpGroup group, cpNearestPointQueryInfo *out)
-  cpSpace* cpSpaceNew(void)
-  void cpSpacePointQuery(cpSpace *space, cpVect point, cpLayers layers, cpGroup group, cpSpacePointQueryFunc func, void *data)
-  cpShape *cpSpacePointQueryFirst(cpSpace *space, cpVect point, cpLayers layers, cpGroup group)
-  void cpSpaceReindexShape(cpSpace *space, cpShape *shape)
-  void cpSpaceReindexShapesForBody(cpSpace *space, cpBody *body)
-  void cpSpaceReindexStatic(cpSpace *space)
-  void cpSpaceRemoveBody(cpSpace *space, cpBody *body)
-  void cpSpaceRemoveCollisionHandler(cpSpace *space, cpCollisionType a, cpCollisionType b)
-  void cpSpaceRemoveConstraint(cpSpace *space, cpConstraint *constraint)
-  void cpSpaceRemoveShape(cpSpace *space, cpShape *shape)
-  void cpSpaceRemoveStaticShape(cpSpace *space, cpShape *shape)
-  void cpSpaceSegmentQuery(cpSpace *space, cpVect start, cpVect end, cpLayers layers, cpGroup group, cpSpaceSegmentQueryFunc func, void *data)
-  cpShape *cpSpaceSegmentQueryFirst(cpSpace *space, cpVect start, cpVect end, cpLayers layers, cpGroup group, cpSegmentQueryInfo *out)
-  void cpSpaceSetDefaultCollisionHandler(
- cpSpace *space,
- cpCollisionBeginFunc begin,
- cpCollisionPreSolveFunc preSolve,
- cpCollisionPostSolveFunc postSolve,
- cpCollisionSeparateFunc separate,
- void *data
-)
-  cpBool cpSpaceShapeQuery(cpSpace *space, cpShape *shape, cpSpaceShapeQueryFunc func, void *data)
-  void cpSpaceStep(cpSpace *space, cpFloat dt)
-  void cpSpaceUseSpatialHash(cpSpace *space, cpFloat dim, int count)
-  void cpSpatialIndexCollideStatic(cpSpatialIndex *dynamicIndex, cpSpatialIndex *staticIndex, cpSpatialIndexQueryFunc func, void *data)
-  void cpSpatialIndexFree(cpSpatialIndex *index)
-  cpSweep1D* cpSweep1DAlloc(void)
-  cpSpatialIndex* cpSweep1DInit(cpSweep1D *sweep, cpSpatialIndexBBFunc bbfunc, cpSpatialIndex *staticIndex)
-  cpSpatialIndex* cpSweep1DNew(cpSpatialIndexBBFunc bbfunc, cpSpatialIndex *staticIndex)
-  cpVect cpvslerp(const cpVect v1, const cpVect v2, const cpFloat t)
-  cpVect cpvslerpconst(const cpVect v1, const cpVect v2, const cpFloat a)
-  char* cpvstr(const cpVect v)
+=back
 
+=head1 TODO
+
+Write the callback function mapping
+
+Update to Chipmunk 7
+
+Convert to Dist::Zilla
 
 =head1 SEE ALSO
 
-Mention other useful documentation such as the documentation of
-related modules or operating system documentation (such as man pages
-in UNIX), or any relevant external documentation such as RFCs or
-standards.
+Chipmunk 2D Website: L<http://chipmunk-physics.net>
 
-If you have a mailing list set up for your module, mention it here.
-
-If you have a web site set up for your module, mention it here.
+L<Alien::Chipmunk>
 
 =head1 AUTHOR
 
-tmurray <tmurray@wumpus-cave.net>
+Timm Murray <tmurray@wumpus-cave.net>
 
-=head1 COPYRIGHT AND LICENSE
+=head1 LICENSE
 
 Copyright (c) 2015,  Timm Murray
 All rights reserved.
