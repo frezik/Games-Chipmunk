@@ -12,6 +12,9 @@ const __sigset_t * __restrict			T_OPAQUE_STRUCT
 const char *					T_PTROBJ
 const char * __restrict				T_PTROBJ
 const cpArbiter *				T_PTROBJ
+const cpBB						T_OPAQUE_STRUCT
+const cpBody *					T_PTROBJ
+const cpConstraint *					T_PTROBJ
 const cpConstraintClass *			T_PTROBJ
 const cpFloat						T_DOUBLE
 const cpShape *					T_PTROBJ
@@ -27,6 +30,7 @@ cpBBTree *					T_PTROBJ
 cpBBTreeVelocityFunc				T_PTROBJ
 cpBitmask                           T_UV
 cpBody *					T_PTROBJ
+cpBody **					T_PTROBJ
 cpBodyArbiterIteratorFunc			T_PTROBJ
 cpBodyConstraintIteratorFunc			T_PTROBJ
 cpBodyShapeIteratorFunc				T_PTROBJ
@@ -43,6 +47,7 @@ cpContactPointSet *				T_PTROBJ
 cpDampedRotarySpring *				T_PTROBJ
 cpDampedSpring *				T_PTROBJ
 cpFloat						T_DOUBLE
+cpHashValue                     T_UV
 cpGearJoint *					T_PTROBJ
 cpGrooveJoint *					T_PTROBJ
 cpGroup						T_UV
@@ -57,6 +62,7 @@ cpRotaryLimitJoint *				T_PTROBJ
 cpSegmentQueryInfo *				T_PTROBJ
 cpSegmentShape *				T_PTROBJ
 cpShape *					T_PTROBJ
+cpShape **					T_PTROBJ
 cpSimpleMotor *					T_PTROBJ
 cpSlideJoint *					T_PTROBJ
 cpSpaceBBQueryFunc				T_PTROBJ

@@ -988,13 +988,6 @@ cpSpaceUseSpatialHash(space, dim, count)
 	int	count
 
 void
-cpSpatialIndexCollideStatic(dynamicIndex, staticIndex, func, data)
-	cpSpatialIndex *	dynamicIndex
-	cpSpatialIndex *	staticIndex
-	cpSpatialIndexQueryFunc	func
-	void *	data
-
-void
 cpSpatialIndexFree(index)
 	cpSpatialIndex *	index
 
@@ -1065,6 +1058,309 @@ cpBodyGetPos( body )
 cpVect
 cpBodyGetVel( body )
     cpBody * body
+
+cpVect
+cpvneg( v )
+    cpVect v
+
+cpVect
+cpvsub( v1, v2 )
+    cpVect v1
+    cpVect v2
+
+cpVect
+cpvmult( v, s )
+    cpVect v
+    cpFloat s
+
+cpFloat
+cpvdot( v1, v2 )
+    cpVect v1
+    cpVect v2
+
+cpFloat
+cpvcross( v1, v2 )
+    cpVect v1
+    cpVect v2
+
+cpVect
+cpvperp( v )
+    cpVect v
+
+cpVect
+cpvrperp( v )
+    cpVect v
+
+cpVect
+cpvproject( v1, v2 )
+    cpVect v1
+    cpVect v2
+
+cpVect
+cpvforangle( a )
+    cpFloat a
+
+cpFloat
+cpvtoangle( v )
+    cpVect v
+
+cpVect
+cpvrotate( v1, v2 )
+    cpVect v1
+    cpVect v2
+
+cpVect
+cpvunrotate( v1, v2 )
+    cpVect v1
+    cpVect v2
+
+cpFloat
+cpvlengthsq( v )
+    cpVect v
+
+cpFloat
+cpvlength( v )
+    cpVect v
+
+cpVect
+cpvlerp( v1, v2, t )
+    cpVect v1
+    cpVect v2
+    cpFloat t
+
+cpVect
+cpvnormalize( v )
+    cpVect v
+
+cpVect
+cpvclamp( v, len )
+    cpVect v
+    cpFloat len
+
+cpVect
+cpvlerpconst( v1, v2, d )
+    cpVect v1
+    cpVect v2
+    cpFloat d
+
+cpFloat
+cpvdist( v1, v2 )
+    cpVect v1
+    cpVect v2
+
+cpFloat
+cpvdistsq( v1, v2 )
+    cpVect v1
+    cpVect v2
+
+cpBool
+cpvnear( v1, v2, dist )
+    cpVect v1
+    cpVect v2
+    cpFloat dist
+
+cpFloat
+cpfmax( a, b )
+    cpFloat a
+    cpFloat b
+
+cpFloat
+cpfmin( a, b )
+    cpFloat a
+    cpFloat b
+
+cpFloat
+cpfabs( f )
+    cpFloat f
+
+cpFloat
+cpfclamp( f, min, max )
+    cpFloat f
+    cpFloat min
+    cpFloat max
+
+cpFloat
+cpflerp( f1, f2, t )
+    cpFloat f1
+    cpFloat f2
+    cpFloat t
+
+cpFloat
+cpflerpconst( f1, f2, d )
+    cpFloat f1
+    cpFloat f2
+    cpFloat d
+
+cpBB
+cpBBNew( l, b, r, t )
+    cpFloat l
+    cpFloat b
+    cpFloat r
+    cpFloat t
+
+cpBB
+cpBBNewForCircle( p, r )
+    cpVect p
+    cpFloat r
+
+cpBool
+cpBBIntersects( a, b )
+    cpBB a
+    cpBB b
+
+cpBool
+cpBBContainsBB( bb, other )
+    cpBB bb
+    cpBB other 
+
+cpBool
+cpBBContainsVect( bb, v )
+    cpBB bb
+    cpVect v
+
+cpBB
+cpBBMerge( a, b )
+    cpBB a
+    cpBB b
+
+cpBB
+cpBBExpand( bb, v )
+    cpBB bb
+    cpVect v
+
+cpFloat
+cpBBArea( bb )
+    cpBB bb
+
+cpFloat
+cpBBMergedArea( a, b )
+    cpBB a
+    cpBB b
+
+cpFloat
+cpBBSegmentQuery( bb, a, b )
+    cpBB bb
+    cpVect a
+    cpVect b
+
+cpBool
+cpBBIntersectsSegment( bb, a, b )
+    cpBB bb
+    cpVect a
+    cpVect b
+
+cpVect
+cpBBClampVect( bb, v )
+    cpBB bb
+    cpVect v
+
+cpFloat
+cpBodyGetMass( body )
+    cpBody * body
+
+cpFloat
+cpBodyGetMoment( body )
+    cpBody * body
+
+cpFloat
+cpBodyGetAngle( body )
+    cpBody * body
+
+cpVect
+cpBodyGetRot( body )
+    cpBody * body
+
+cpBool
+cpBodyIsSleeping( body )
+    cpBody * body
+
+cpBool
+cpBodyIsStatic( body )
+    cpBody * body
+
+cpBool
+cpBodyIsRogue( body )
+    cpBody * body
+
+cpFloat
+cpBodyKineticEnergy( body )
+    cpBody * body
+
+cpBB
+cpShapeGetBB( shape )
+    cpShape * shape
+
+void
+cpArbiterGetShapes( arb, a, b )
+    cpArbiter * arb
+    cpShape ** a
+    cpShape ** b
+
+void
+cpArbiterGetBodies( arb, a, b )
+    cpArbiter * arb
+    cpBody **a
+    cpBody **b
+
+cpBody *
+cpConstraintGetA( constraint )
+    cpConstraint * constraint
+
+cpBody *
+cpConstraintGetB( constraint )
+    cpConstraint * constraint
+
+cpFloat
+cpConstraintGetImpulse( constraint )
+    cpConstraint * constraint
+
+cpFloat
+cpGearJointGetRatio( constraint )
+    cpConstraint * constraint
+
+void
+cpSpatialIndexDestroy( index )
+    cpSpatialIndex * index 
+
+int
+cpSpatialIndexCount( index )
+    cpSpatialIndex * index
+
+cpBool
+cpSpatialIndexContains( index, obj, hashid )
+    cpSpatialIndex * index
+    void * obj
+    cpHashValue hashid
+
+void
+cpSpatialIndexInsert( index, obj, hashid )
+    cpSpatialIndex * index
+    void * obj
+    cpHashValue hashid
+
+void
+cpSpatialIndexRemove( index, obj, hashid )
+    cpSpatialIndex * index
+    void * obj
+    cpHashValue hashid
+
+void
+cpSpatialIndexReindex( index )
+    cpSpatialIndex * index
+
+void
+cpSpatialIndexReindexObject( index, obj, hashid )
+    cpSpatialIndex * index
+    void * obj
+    cpHashValue hashid
+
+cpFloat
+cpSpaceGetCurrentTimeStep( space )
+    cpSpace * space
+
+cpBool
+cpSpaceIsLocked( space )
+    cpSpace * space
 
 
 MODULE = Games::Chipmunk		PACKAGE = Games::Chipmunk::cpVect
