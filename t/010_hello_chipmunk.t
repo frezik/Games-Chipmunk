@@ -34,7 +34,7 @@ my $moment = cpMomentForCircle($mass, 0, $radius, $CPV_ZERO);
 # The cpSpaceAdd*() functions return the thing that you are adding.
 # It's convenient to create and add an object in one line.
 my $ballBody = cpSpaceAddBody($space, cpBodyNew($mass, $moment));
-cpBodySetPos($ballBody, cpv(0, 15));
+cpBodySetPosition($ballBody, cpv(0, 15));
 
 # Now we create the collision shape for the ball.
 # You can create multiple collision shapes that point to the same body.
@@ -53,8 +53,8 @@ my $last_y = 0;
 # move anything.  We'll just do a few runs to prime the system.
 cpSpaceStep($space, $timeStep) for 1 .. 5;
 for(my $time = $timeStep * 5; $time < 2; $time += $timeStep){
-    my $pos = cpBodyGetPos($ballBody);
-    my $vel = cpBodyGetVel($ballBody);
+    my $pos = cpBodyGetPosition($ballBody);
+    my $vel = cpBodyGetVelocity($ballBody);
     diag( sprintf(
         'Time is %5.2f. ballBody is at (%5.2f, %5.2f). Its velocity is (%5.2f, %5.2f)',
         $time, $pos->x, $pos->y, $vel->x, $vel->y

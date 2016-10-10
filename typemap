@@ -37,6 +37,7 @@ cpBodyShapeIteratorFunc				T_PTROBJ
 cpBool						T_BOOL
 cpCircleShape *					T_PTROBJ
 cpCollisionBeginFunc				T_PTROBJ
+cpCollisionHandler *                T_PTROBJ
 cpCollisionPostSolveFunc			T_PTROBJ
 cpCollisionPreSolveFunc				T_PTROBJ
 cpCollisionSeparateFunc				T_PTROBJ
@@ -51,10 +52,10 @@ cpHashValue                     T_UV
 cpGearJoint *					T_PTROBJ
 cpGrooveJoint *					T_PTROBJ
 cpGroup						T_UV
-cpLayers					T_UV
 cpNearestPointQueryInfo *			T_PTROBJ
 cpPinJoint *					T_PTROBJ
 cpPivotJoint *					T_PTROBJ
+cpPointQueryInfo *              T_PTROBJ
 cpPolyShape *					T_PTROBJ
 cpPostStepFunc					T_PTROBJ
 cpRatchetJoint *				T_PTROBJ
@@ -78,10 +79,13 @@ cpSpatialIndex *				T_PTROBJ
 cpSpatialIndexBBFunc				T_PTROBJ
 cpSpatialIndexQueryFunc				T_PTROBJ
 cpSweep1D *					T_PTROBJ
+cpTransform                 T_OPAQUE_STRUCT
 cpVect						T_OPAQUE_STRUCT
 cpVect *					T_PTROBJ
 cpSpace						T_OPAQUE_STRUCT
 cpSpace *					T_PTROBJ_STRUCT
+cpShapeFilter               T_OPAQUE_STRUCT
+cpSegmentQueryInfo *        T_PTROBJ_STRUCT
 div_t						T_OPAQUE_STRUCT
 double *					T_PTROBJ
 double * __restrict				T_PTROBJ

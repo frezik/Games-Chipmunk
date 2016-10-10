@@ -51,6 +51,7 @@ our @EXPORT =  qw(
 	cpBodyEachConstraint
 	cpBodyEachShape
 	cpBodyFree
+    cpBodySetPosition
 	cpBodyGetVelAtLocalPoint
 	cpBodyGetVelAtWorldPoint
 	cpBodyInit
@@ -62,7 +63,6 @@ our @EXPORT =  qw(
 	cpBodySetAngle
 	cpBodySetMass
 	cpBodySetMoment
-	cpBodySetPos
 	cpBodySleep
 	cpBodySleepWithGroup
 	cpBodyUpdatePosition
@@ -254,7 +254,7 @@ our @EXPORT =  qw(
     cpBBClampVect
     cpBodyGetMass
     cpBodyGetMoment
-    cpBodyGetPos
+    cpBodyGetPosition
     cpBodyGetAngle
     cpBodyGetRot
     cpBodyIsSleeping
@@ -293,7 +293,7 @@ our @EXPORT =  qw(
     cpSpaceIsLocked
     cpShapeSetFriction
     cpBodyGetPos
-    cpBodyGetVel
+    cpBodyGetVelocity
 );
 our @EXPORT_OK = @EXPORT;
 
