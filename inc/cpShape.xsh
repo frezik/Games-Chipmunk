@@ -37,3 +37,48 @@ cpSegmentShapeSetNeighbors(shape, prev, next)
 	cpShape *	shape
 	cpVect	prev
 	cpVect	next
+
+cpBB
+cpShapeCacheBB(shape)
+	cpShape *	shape
+
+void
+cpShapeDestroy(shape)
+	cpShape *	shape
+
+void
+cpShapeFree(shape)
+	cpShape *	shape
+
+cpFloat
+cpShapePointQuery(shape, p, out)
+	cpShape *	shape
+    cpVect      p
+    cpPointQueryInfo * out
+
+cpBool
+cpShapeSegmentQuery(shape, a, b, radius, info)
+	cpShape *	shape
+	cpVect	a
+	cpVect	b
+    cpFloat radius
+	cpSegmentQueryInfo *	info
+
+void
+cpShapeSetBody(shape, body)
+	cpShape *	shape
+	cpBody *	body
+
+cpBB
+cpShapeUpdate(shape, transform)
+	cpShape *	shape
+    cpTransform transform
+
+void
+cpShapeSetFriction(shape, value)
+    cpShape * shape
+    cpFloat value
+
+cpBB
+cpShapeGetBB( shape )
+    cpShape * shape

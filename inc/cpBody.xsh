@@ -110,4 +110,15 @@ cpFloat
 cpBodyKineticEnergy( body )
     cpBody * body
 
+cpVect
+cpBodyGetPosition( body )
+    cpBody * body
 
+void
+cpBodySetPosition( body, pos )
+    cpBody * body
+    cpVect pos
+
+cpVect
+cpBodyGetVelocity( body )
+    cpBody * body

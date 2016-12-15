@@ -45,4 +45,14 @@ cpFloat
 cpArbiterTotalKE(arb)
 	const cpArbiter *	arb
 
+void
+cpArbiterGetShapes( arb, a, b )
+    cpArbiter * arb
+    cpShape ** a
+    cpShape ** b
 
+void
+cpArbiterGetBodies( arb, a, b )
+    cpArbiter * arb
+    cpBody **a
+    cpBody **b
