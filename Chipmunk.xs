@@ -14,6 +14,18 @@ MODULE = Games::Chipmunk		PACKAGE = Games::Chipmunk
 INCLUDE: const-xs.inc
 
 INCLUDE: inc/cpArbiter.xsh
+INCLUDE: inc/cpBB.xsh
+INCLUDE: inc/cpBody.xsh
+INCLUDE: inc/cpConstraint.xsh
+INCLUDE: inc/cpDampedRotarySpring.xsh
+INCLUDE: inc/cpDampedSpring.xsh
+INCLUDE: inc/cpGearJoint.xsh
+INCLUDE: inc/cpGrooveJoint.xsh
+INCLUDE: inc/cpPinJoint.xsh
+INCLUDE: inc/cpPivotJoint.xsh
+INCLUDE: inc/cpPolyShape.xsh
+INCLUDE: inc/cpRatchetJoint.xsh
+INCLUDE: inc/cpRotaryLimitJoint.xsh
 
 cpVect
 _CPVZERO()
@@ -38,150 +50,6 @@ cpAreaForSegment(a, b, r)
 	cpVect	a
 	cpVect	b
 	cpFloat	r
-
-cpBBTree *
-cpBBTreeAlloc()
-
-cpSpatialIndex *
-cpBBTreeInit(tree, bbfunc, staticIndex)
-	cpBBTree *	tree
-	cpSpatialIndexBBFunc	bbfunc
-	cpSpatialIndex *	staticIndex
-
-cpSpatialIndex *
-cpBBTreeNew(bbfunc, staticIndex)
-	cpSpatialIndexBBFunc	bbfunc
-	cpSpatialIndex *	staticIndex
-
-void
-cpBBTreeOptimize(index)
-	cpSpatialIndex *	index
-
-void
-cpBBTreeSetVelocityFunc(index, func)
-	cpSpatialIndex *	index
-	cpBBTreeVelocityFunc	func
-
-cpVect
-cpBBWrapVect(bb, v)
-	cpBB	bb
-	cpVect	v
-
-void
-cpBodyActivate(body)
-	cpBody *	body
-
-void
-cpBodyActivateStatic(body, filter)
-	cpBody *	body
-	cpShape *	filter
-
-cpBody *
-cpBodyAlloc()
-
-void
-cpBodyDestroy(body)
-	cpBody *	body
-
-void
-cpBodyEachArbiter(body, func, data)
-	cpBody *	body
-	cpBodyArbiterIteratorFunc	func
-	void *	data
-
-void
-cpBodyEachConstraint(body, func, data)
-	cpBody *	body
-	cpBodyConstraintIteratorFunc	func
-	void *	data
-
-void
-cpBodyEachShape(body, func, data)
-	cpBody *	body
-	cpBodyShapeIteratorFunc	func
-	void *	data
-
-void
-cpBodyFree(body)
-	cpBody *	body
-
-cpBody *
-cpBodyInit(body, m, i)
-	cpBody *	body
-	cpFloat	m
-	cpFloat	i
-
-cpBody *
-cpBodyNew(m, i)
-	cpFloat	m
-	cpFloat	i
-
-cpBody *
-cpBodyNewStatic()
-
-void
-cpBodySetAngle(body, a)
-	cpBody *	body
-	cpFloat	a
-
-void
-cpBodySetMass(body, m)
-	cpBody *	body
-	cpFloat	m
-
-void
-cpBodySetMoment(body, i)
-	cpBody *	body
-	cpFloat	i
-
-void
-cpBodySleep(body)
-	cpBody *	body
-
-void
-cpBodySleepWithGroup(body, group)
-	cpBody *	body
-	cpBody *	group
-
-void
-cpBodyUpdatePosition(body, dt)
-	cpBody *	body
-	cpFloat	dt
-
-void
-cpBodyUpdateVelocity(body, gravity, damping, dt)
-	cpBody *	body
-	cpVect	gravity
-	cpFloat	damping
-	cpFloat	dt
-
-cpPolyShape *
-cpBoxShapeInit(poly, body, width, height, radius)
-	cpPolyShape *	poly
-	cpBody *	body
-	cpFloat	width
-	cpFloat	height
-    cpFloat radius
-
-cpPolyShape *
-cpBoxShapeInit2(poly, body, box, radius)
-	cpPolyShape *	poly
-	cpBody *	body
-	cpBB	box
-    cpFloat radius
-
-cpShape *
-cpBoxShapeNew(body, width, height, radius)
-	cpBody *	body
-	cpFloat	width
-	cpFloat	height
-    cpFloat radius
-
-cpShape *
-cpBoxShapeNew2(body, box, radius)
-	cpBody *	body
-	cpBB	box
-    cpFloat radius
 
 cpVect
 cpCentroidForPoly(numVerts, verts)
@@ -212,14 +80,6 @@ cpCircleShapeNew(body, radius, offset)
 	cpFloat	radius
 	cpVect	offset
 
-void
-cpConstraintDestroy(constraint)
-	cpConstraint *	constraint
-
-void
-cpConstraintFree(constraint)
-	cpConstraint *	constraint
-
 int
 cpConvexHull(count, verts, result, first, tol)
 	int	count
@@ -227,103 +87,6 @@ cpConvexHull(count, verts, result, first, tol)
 	cpVect *	result
 	int *	first
 	cpFloat	tol
-
-cpDampedRotarySpring *
-cpDampedRotarySpringAlloc()
-
-cpDampedRotarySpring *
-cpDampedRotarySpringInit(joint, a, b, restAngle, stiffness, damping)
-	cpDampedRotarySpring *	joint
-	cpBody *	a
-	cpBody *	b
-	cpFloat	restAngle
-	cpFloat	stiffness
-	cpFloat	damping
-
-cpConstraint *
-cpDampedRotarySpringNew(a, b, restAngle, stiffness, damping)
-	cpBody *	a
-	cpBody *	b
-	cpFloat	restAngle
-	cpFloat	stiffness
-	cpFloat	damping
-
-cpDampedSpring *
-cpDampedSpringAlloc()
-
-cpDampedSpring *
-cpDampedSpringInit(joint, a, b, anchr1, anchr2, restLength, stiffness, damping)
-	cpDampedSpring *	joint
-	cpBody *	a
-	cpBody *	b
-	cpVect	anchr1
-	cpVect	anchr2
-	cpFloat	restLength
-	cpFloat	stiffness
-	cpFloat	damping
-
-cpConstraint *
-cpDampedSpringNew(a, b, anchr1, anchr2, restLength, stiffness, damping)
-	cpBody *	a
-	cpBody *	b
-	cpVect	anchr1
-	cpVect	anchr2
-	cpFloat	restLength
-	cpFloat	stiffness
-	cpFloat	damping
-
-cpGearJoint *
-cpGearJointAlloc()
-
-cpGearJoint *
-cpGearJointInit(joint, a, b, phase, ratio)
-	cpGearJoint *	joint
-	cpBody *	a
-	cpBody *	b
-	cpFloat	phase
-	cpFloat	ratio
-
-cpConstraint *
-cpGearJointNew(a, b, phase, ratio)
-	cpBody *	a
-	cpBody *	b
-	cpFloat	phase
-	cpFloat	ratio
-
-void
-cpGearJointSetRatio(constraint, value)
-	cpConstraint *	constraint
-	cpFloat	value
-
-cpGrooveJoint *
-cpGrooveJointAlloc()
-
-cpGrooveJoint *
-cpGrooveJointInit(joint, a, b, groove_a, groove_b, anchr2)
-	cpGrooveJoint *	joint
-	cpBody *	a
-	cpBody *	b
-	cpVect	groove_a
-	cpVect	groove_b
-	cpVect	anchr2
-
-cpConstraint *
-cpGrooveJointNew(a, b, groove_a, groove_b, anchr2)
-	cpBody *	a
-	cpBody *	b
-	cpVect	groove_a
-	cpVect	groove_b
-	cpVect	anchr2
-
-void
-cpGrooveJointSetGrooveA(constraint, value)
-	cpConstraint *	constraint
-	cpVect	value
-
-void
-cpGrooveJointSetGrooveB(constraint, value)
-	cpConstraint *	constraint
-	cpVect	value
 
 void
 cpMessage(condition, file, line, isError, isHardError, message, ...)
@@ -366,149 +129,6 @@ cpMomentForSegment(m, a, b, radius)
     cpVect a
     cpVect b
     cpFloat radius
-
-cpPinJoint *
-cpPinJointAlloc()
-
-cpPinJoint *
-cpPinJointInit(joint, a, b, anchr1, anchr2)
-	cpPinJoint *	joint
-	cpBody *	a
-	cpBody *	b
-	cpVect	anchr1
-	cpVect	anchr2
-
-cpConstraint *
-cpPinJointNew(a, b, anchr1, anchr2)
-	cpBody *	a
-	cpBody *	b
-	cpVect	anchr1
-	cpVect	anchr2
-
-cpPivotJoint *
-cpPivotJointAlloc()
-
-cpPivotJoint *
-cpPivotJointInit(joint, a, b, anchr1, anchr2)
-	cpPivotJoint *	joint
-	cpBody *	a
-	cpBody *	b
-	cpVect	anchr1
-	cpVect	anchr2
-
-cpConstraint *
-cpPivotJointNew(a, b, pivot)
-	cpBody *	a
-	cpBody *	b
-	cpVect	pivot
-
-cpConstraint *
-cpPivotJointNew2(a, b, anchr1, anchr2)
-	cpBody *	a
-	cpBody *	b
-	cpVect	anchr1
-	cpVect	anchr2
-
-cpPolyShape *
-cpPolyShapeAlloc()
-
-cpVect
-cpPolyShapeGetVert(shape, idx)
-	cpShape *	shape
-	int	idx
-
-cpPolyShape *
-cpPolyShapeInit(poly, body, count, verts, transform, radius)
-	cpPolyShape *	poly
-	cpBody *	body
-	int	count
-	const cpVect *	verts
-    cpTransform transform
-    cpFloat radius
-
-cpShape *
-cpPolyShapeNew(body, count, verts, transform, radius)
-	cpBody *	body
-	int	count
-	cpVect *	verts
-    cpTransform transform
-    cpFloat radius
-
-cpRatchetJoint *
-cpRatchetJointAlloc()
-
-cpRatchetJoint *
-cpRatchetJointInit(joint, a, b, phase, ratchet)
-	cpRatchetJoint *	joint
-	cpBody *	a
-	cpBody *	b
-	cpFloat	phase
-	cpFloat	ratchet
-
-cpConstraint *
-cpRatchetJointNew(a, b, phase, ratchet)
-	cpBody *	a
-	cpBody *	b
-	cpFloat	phase
-	cpFloat	ratchet
-
-cpRotaryLimitJoint *
-cpRotaryLimitJointAlloc()
-
-cpRotaryLimitJoint *
-cpRotaryLimitJointInit(joint, a, b, min, max)
-	cpRotaryLimitJoint *	joint
-	cpBody *	a
-	cpBody *	b
-	cpFloat	min
-	cpFloat	max
-
-cpConstraint *
-cpRotaryLimitJointNew(a, b, min, max)
-	cpBody *	a
-	cpBody *	b
-	cpFloat	min
-	cpFloat	max
-
-cpSegmentShape *
-cpSegmentShapeAlloc()
-
-cpVect
-cpSegmentShapeGetA(shape)
-	const cpShape *	shape
-
-cpVect
-cpSegmentShapeGetB(shape)
-	const cpShape *	shape
-
-cpVect
-cpSegmentShapeGetNormal(shape)
-	const cpShape *	shape
-
-cpFloat
-cpSegmentShapeGetRadius(shape)
-	const cpShape *	shape
-
-cpSegmentShape *
-cpSegmentShapeInit(seg, body, a, b, radius)
-	cpSegmentShape *	seg
-	cpBody *	body
-	cpVect	a
-	cpVect	b
-	cpFloat	radius
-
-cpShape *
-cpSegmentShapeNew(body, a, b, radius)
-	cpBody *	body
-	cpVect	a
-	cpVect	b
-	cpFloat	radius
-
-void
-cpSegmentShapeSetNeighbors(shape, prev, next)
-	cpShape *	shape
-	cpVect	prev
-	cpVect	next
 
 cpBB
 cpShapeCacheBB(shape)
@@ -975,93 +595,6 @@ cpflerpconst( f1, f2, d )
     cpFloat d
 
 cpBB
-cpBBNew( l, b, r, t )
-    cpFloat l
-    cpFloat b
-    cpFloat r
-    cpFloat t
-
-cpBB
-cpBBNewForCircle( p, r )
-    cpVect p
-    cpFloat r
-
-cpBool
-cpBBIntersects( a, b )
-    cpBB a
-    cpBB b
-
-cpBool
-cpBBContainsBB( bb, other )
-    cpBB bb
-    cpBB other 
-
-cpBool
-cpBBContainsVect( bb, v )
-    cpBB bb
-    cpVect v
-
-cpBB
-cpBBMerge( a, b )
-    cpBB a
-    cpBB b
-
-cpBB
-cpBBExpand( bb, v )
-    cpBB bb
-    cpVect v
-
-cpFloat
-cpBBArea( bb )
-    cpBB bb
-
-cpFloat
-cpBBMergedArea( a, b )
-    cpBB a
-    cpBB b
-
-cpFloat
-cpBBSegmentQuery( bb, a, b )
-    cpBB bb
-    cpVect a
-    cpVect b
-
-cpBool
-cpBBIntersectsSegment( bb, a, b )
-    cpBB bb
-    cpVect a
-    cpVect b
-
-cpVect
-cpBBClampVect( bb, v )
-    cpBB bb
-    cpVect v
-
-cpFloat
-cpBodyGetMass( body )
-    cpBody * body
-
-cpFloat
-cpBodyGetMoment( body )
-    cpBody * body
-
-cpFloat
-cpBodyGetAngle( body )
-    cpBody * body
-
-cpVect
-cpBodyGetRotation( body )
-    cpBody * body
-
-cpBool
-cpBodyIsSleeping( body )
-    cpBody * body
-
-cpFloat
-cpBodyKineticEnergy( body )
-    cpBody * body
-
-cpBB
 cpShapeGetBB( shape )
     cpShape * shape
 
@@ -1076,22 +609,6 @@ cpArbiterGetBodies( arb, a, b )
     cpArbiter * arb
     cpBody **a
     cpBody **b
-
-cpBody *
-cpConstraintGetBodyA( constraint )
-    cpConstraint * constraint
-
-cpBody *
-cpConstraintGetBodyB( constraint )
-    cpConstraint * constraint
-
-cpFloat
-cpConstraintGetImpulse( constraint )
-    cpConstraint * constraint
-
-cpFloat
-cpGearJointGetRatio( constraint )
-    cpConstraint * constraint
 
 void
 cpSpatialIndexDestroy( index )
