@@ -13,59 +13,14 @@ MODULE = Games::Chipmunk		PACKAGE = Games::Chipmunk
 
 INCLUDE: const-xs.inc
 
+INCLUDE: inc/cpArbiter.xsh
+
 cpVect
 _CPVZERO()
     CODE:
         RETVAL = cpvzero;
     OUTPUT:
         RETVAL
-
-cpContactPointSet
-cpArbiterGetContactPointSet(arb)
-	const cpArbiter *	arb
-
-int
-cpArbiterGetCount(arb)
-	const cpArbiter *	arb
-
-cpFloat
-cpArbiterGetDepth(arb, i)
-	const cpArbiter *	arb
-	int	i
-
-cpVect
-cpArbiterGetNormal(arb)
-	const cpArbiter *	arb
-
-cpVect
-cpArbiterGetSurfaceVelocity(arb)
-	cpArbiter *	arb
-
-void
-cpArbiterIgnore(arb)
-	cpArbiter *	arb
-
-cpBool
-cpArbiterIsFirstContact(arb)
-	const cpArbiter *	arb
-
-void
-cpArbiterSetContactPointSet(arb, set)
-	cpArbiter *	arb
-	cpContactPointSet *	set
-
-void
-cpArbiterSetSurfaceVelocity(arb, vr)
-	cpArbiter *	arb
-	cpVect	vr
-
-cpVect
-cpArbiterTotalImpulse(arb)
-	const cpArbiter *	arb
-
-cpFloat
-cpArbiterTotalKE(arb)
-	const cpArbiter *	arb
 
 cpFloat
 cpAreaForCircle(r1, r2)

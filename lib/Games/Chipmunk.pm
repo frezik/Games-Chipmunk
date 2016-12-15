@@ -433,8 +433,6 @@ A few cavets:
 
 Write the callback function mapping
 
-Update to Chipmunk 7
-
 Convert to Dist::Zilla
 
 =head1 SEE ALSO
@@ -449,7 +447,7 @@ Timm Murray <tmurray@wumpus-cave.net>
 
 =head1 LICENSE
 
-Copyright (c) 2015,  Timm Murray
+Copyright (c) 2016,  Timm Murray
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are 
