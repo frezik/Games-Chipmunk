@@ -45,6 +45,7 @@ cpCollisionType					T_UV
 cpConstraint *					T_PTROBJ
 cpContactPointSet				T_OPAQUE_STRUCT
 cpContactPointSet *				T_PTROBJ
+cpDataPointer                   T_OPAQUE_STRUCT
 cpDampedRotarySpring *				T_PTROBJ
 cpDampedSpring *				T_PTROBJ
 cpFloat						T_DOUBLE
