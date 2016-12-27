@@ -1,17 +1,49 @@
-cpPinJoint *
-cpPinJointAlloc()
+cpBool
+cpConstraintIsPinJoint( constraint )
+    cpConstraint *constraint
 
 cpPinJoint *
-cpPinJointInit(joint, a, b, anchr1, anchr2)
-	cpPinJoint *	joint
-	cpBody *	a
-	cpBody *	b
-	cpVect	anchr1
-	cpVect	anchr2
+cpPinJointAlloc(  )
+
+cpPinJoint *
+cpPinJointInit( joint, a, b, anchorA, anchorB )
+    cpPinJoint *joint
+    cpBody *a
+    cpBody *b
+    cpVect anchorA
+    cpVect anchorB
 
 cpConstraint *
-cpPinJointNew(a, b, anchr1, anchr2)
-	cpBody *	a
-	cpBody *	b
-	cpVect	anchr1
-	cpVect	anchr2
+cpPinJointNew( a, b, anchorA, anchorB )
+    cpBody *a
+    cpBody *b
+    cpVect anchorA
+    cpVect anchorB
+
+cpVect
+cpPinJointGetAnchorA( constraint )
+    cpConstraint *constraint
+
+void
+cpPinJointSetAnchorA( constraint, anchorA )
+    cpConstraint *constraint
+    cpVect anchorA
+
+cpVect
+cpPinJointGetAnchorB( constraint )
+    cpConstraint *constraint
+
+void
+cpPinJointSetAnchorB( constraint, anchorB )
+    cpConstraint *constraint
+    cpVect anchorB
+
+cpFloat
+cpPinJointGetDist( constraint )
+    cpConstraint *constraint
+
+void
+cpPinJointSetDist( constraint, dist )
+    cpConstraint *constraint
+    cpFloat dist
+
