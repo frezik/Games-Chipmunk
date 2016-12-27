@@ -77,6 +77,7 @@ cpSlideJoint *					T_PTROBJ
 cpSpaceBBQueryFunc				T_PTROBJ
 cpSpaceBodyIteratorFunc				T_PTROBJ
 cpSpaceConstraintIteratorFunc			T_PTROBJ
+cpSpaceDebugDrawOptions *       T_PTROBJ
 cpSpaceHash *					T_PTROBJ
 cpSpaceNearestPointQueryFunc			T_PTROBJ
 cpSpacePointQueryFunc				T_PTROBJ
@@ -87,6 +88,7 @@ cpSpatialIndex *				T_PTROBJ
 cpSpatialIndexBBFunc				T_PTROBJ
 cpSpatialIndexQueryFunc				T_PTROBJ
 cpSweep1D *					T_PTROBJ
+cpTimestamp                 T_OPAQUE_STRUCT
 cpTransform                 T_OPAQUE_STRUCT
 cpVect						T_OPAQUE_STRUCT
 cpVect *					T_PTROBJ
