@@ -52,6 +52,7 @@ cpContactPointSet				T_OPAQUE_STRUCT
 cpContactPointSet *				T_PTROBJ
 cpDataPointer                   T_OPAQUE_STRUCT
 cpDampedRotarySpring *				T_PTROBJ
+cpDampedRotarySpringTorqueFunc  T_OPAQUE_STRUCT
 cpDampedSpring *				T_PTROBJ
 cpFloat						T_DOUBLE
 cpHashValue                     T_UV
