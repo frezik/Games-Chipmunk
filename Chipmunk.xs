@@ -11,6 +11,8 @@
 
 MODULE = Games::Chipmunk		PACKAGE = Games::Chipmunk		
 
+PROTOTYPES: ENABLE
+
 INCLUDE: const-xs.inc
 
 INCLUDE: inc/cpArbiter.xsh

@@ -31,9 +31,12 @@ cpBBTreeVelocityFunc				T_PTROBJ
 cpBitmask                           T_UV
 cpBody *					T_PTROBJ
 cpBody **					T_PTROBJ
+cpBodyType                  T_OPAQUE_STRUCT
 cpBodyArbiterIteratorFunc			T_PTROBJ
 cpBodyConstraintIteratorFunc			T_PTROBJ
+cpBodyPositionFunc          T_OPAQUE_STRUCT
 cpBodyShapeIteratorFunc				T_PTROBJ
+cpBodyVelocityFunc          T_OPAQUE_STRUCT
 cpBool						T_BOOL
 cpCircleShape *					T_PTROBJ
 cpCollisionBeginFunc				T_PTROBJ

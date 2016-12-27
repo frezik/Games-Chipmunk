@@ -48,7 +48,7 @@ sub parse_header_line
     my ($line) = @_;
     return () unless $line =~ /\A
         CP_EXPORT
-        \s+ (\w+)
+        \s+ ([\w\*]+)
         \s+ ([^\(\s]+) \s* \(
         \s* ([^\)]+)
     /x;
@@ -56,9 +56,13 @@ sub parse_header_line
     my $return_val = $1;
     my $func_name = $2;
     my $args = $3;
-    my @args = split /\s*,\s*/, $args;
-    my @tokenized_args = map {[ split /\s+/ ]} @args;
 
+    my @tokenized_args = ();
+    if( $args && $args ne 'void' ) {
+        my @args = split /\s*,\s*/, $args;
+        @tokenized_args = map {[ split /\s+/ ]} @args;
+    }
+    
     return {
         return_val => $return_val,
         func_name => $func_name,
@@ -81,12 +85,20 @@ sub create_xs
 sub print_xs_def
 {
     my ($return_val, $func_name, $args) = @_;
-    my @args = @$args;
-    my @arg_names = map {
-        my $name = $_->[-1];
-        $name =~ s/\A \s* \*+//x;
-        $name;
-    } @args;
+
+    my @arg_names = ();
+    my @args = ();
+    foreach my $arg_list (@$args) {
+        my @arg_list = @$arg_list;
+
+        my $name = $arg_list[-1];
+        $name =~ s/\A\*//;
+
+        shift @arg_list if $arg_list[0] eq 'const';
+
+        push @arg_names, $name;
+        push @args, \@arg_list;
+    }
 
     print "$return_val\n";
     print "$func_name( ";
