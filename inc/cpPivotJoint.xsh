@@ -1,23 +1,46 @@
-cpPivotJoint *
-cpPivotJointAlloc()
+cpBool
+cpConstraintIsPivotJoint( constraint )
+    cpConstraint *constraint
 
 cpPivotJoint *
-cpPivotJointInit(joint, a, b, anchr1, anchr2)
-	cpPivotJoint *	joint
-	cpBody *	a
-	cpBody *	b
-	cpVect	anchr1
-	cpVect	anchr2
+cpPivotJointAlloc(  )
+
+cpPivotJoint *
+cpPivotJointInit( joint, a, b, anchorA, anchorB )
+    cpPivotJoint *joint
+    cpBody *a
+    cpBody *b
+    cpVect anchorA
+    cpVect anchorB
 
 cpConstraint *
-cpPivotJointNew(a, b, pivot)
-	cpBody *	a
-	cpBody *	b
-	cpVect	pivot
+cpPivotJointNew( a, b, pivot )
+    cpBody *a
+    cpBody *b
+    cpVect pivot
 
 cpConstraint *
-cpPivotJointNew2(a, b, anchr1, anchr2)
-	cpBody *	a
-	cpBody *	b
-	cpVect	anchr1
-	cpVect	anchr2
+cpPivotJointNew2( a, b, anchorA, anchorB )
+    cpBody *a
+    cpBody *b
+    cpVect anchorA
+    cpVect anchorB
+
+cpVect
+cpPivotJointGetAnchorA( constraint )
+    cpConstraint *constraint
+
+void
+cpPivotJointSetAnchorA( constraint, anchorA )
+    cpConstraint *constraint
+    cpVect anchorA
+
+cpVect
+cpPivotJointGetAnchorB( constraint )
+    cpConstraint *constraint
+
+void
+cpPivotJointSetAnchorB( constraint, anchorB )
+    cpConstraint *constraint
+    cpVect anchorB
+
