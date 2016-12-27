@@ -1,26 +1,40 @@
-cpGearJoint *
-cpGearJointAlloc()
+cpBool
+cpConstraintIsGearJoint( constraint )
+    cpConstraint *constraint
 
-cpGearJoint *
-cpGearJointInit(joint, a, b, phase, ratio)
-	cpGearJoint *	joint
-	cpBody *	a
-	cpBody *	b
-	cpFloat	phase
-	cpFloat	ratio
+cpGearJoint*
+cpGearJointAlloc(  )
 
-cpConstraint *
-cpGearJointNew(a, b, phase, ratio)
-	cpBody *	a
-	cpBody *	b
-	cpFloat	phase
-	cpFloat	ratio
+cpGearJoint*
+cpGearJointInit( joint, a, b, phase, ratio )
+    cpGearJoint *joint
+    cpBody *a
+    cpBody *b
+    cpFloat phase
+    cpFloat ratio
+
+cpConstraint*
+cpGearJointNew( a, b, phase, ratio )
+    cpBody *a
+    cpBody *b
+    cpFloat phase
+    cpFloat ratio
+
+cpFloat
+cpGearJointGetPhase( constraint )
+    cpConstraint *constraint
 
 void
-cpGearJointSetRatio(constraint, value)
-	cpConstraint *	constraint
-	cpFloat	value
+cpGearJointSetPhase( constraint, phase )
+    cpConstraint *constraint
+    cpFloat phase
 
 cpFloat
 cpGearJointGetRatio( constraint )
-    cpConstraint * constraint
+    cpConstraint *constraint
+
+void
+cpGearJointSetRatio( constraint, ratio )
+    cpConstraint *constraint
+    cpFloat ratio
+
