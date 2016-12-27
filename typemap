@@ -54,6 +54,7 @@ cpDataPointer                   T_OPAQUE_STRUCT
 cpDampedRotarySpring *				T_PTROBJ
 cpDampedRotarySpringTorqueFunc  T_OPAQUE_STRUCT
 cpDampedSpring *				T_PTROBJ
+cpDampedSpringForceFunc         T_OPAQUE_STRUCT
 cpFloat						T_DOUBLE
 cpHashValue                     T_UV
 cpGearJoint *					T_PTROBJ
