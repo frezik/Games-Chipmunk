@@ -36,7 +36,6 @@ INCLUDE: inc/cpSimpleMotor.xsh
 INCLUDE: inc/cpSlideJoint.xsh
 INCLUDE: inc/cpSpace.xsh
 INCLUDE: inc/cpSpatialIndex.xsh
-INCLUDE: inc/cpTransform.xsh
 
 cpVect
 _CPVZERO()
