@@ -1,1 +1,3 @@
-* Convert cpBB header by hand (too many variances inside to do automatically)
+* Convert by hand:
+    * cpBB
+    * cpMarch
