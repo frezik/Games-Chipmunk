@@ -23,16 +23,21 @@ INCLUDE: inc/cpDampedRotarySpring.xsh
 INCLUDE: inc/cpDampedSpring.xsh
 INCLUDE: inc/cpGearJoint.xsh
 INCLUDE: inc/cpGrooveJoint.xsh
+INCLUDE: inc/cpHastySpace.xsh
+INCLUDE: inc/cpMarch.xsh
 INCLUDE: inc/cpPinJoint.xsh
 INCLUDE: inc/cpPivotJoint.xsh
+INCLUDE: inc/cpPolyline.xsh
 INCLUDE: inc/cpPolyShape.xsh
 INCLUDE: inc/cpRatchetJoint.xsh
+INCLUDE: inc/cpRobust.xsh
 INCLUDE: inc/cpRotaryLimitJoint.xsh
 INCLUDE: inc/cpShape.xsh
 INCLUDE: inc/cpSimpleMotor.xsh
 INCLUDE: inc/cpSlideJoint.xsh
 INCLUDE: inc/cpSpace.xsh
 INCLUDE: inc/cpSpatialIndex.xsh
+INCLUDE: inc/cpTransform.xsh
 
 cpVect
 _CPVZERO()
