@@ -48,14 +48,17 @@ sub parse_header_line
     my ($line) = @_;
     return () unless $line =~ /\A
         CP_EXPORT
-        \s+ ([\w\*]+)
-        \s+ ([^\(\s]+) \s* \(
+        \s+ ([\w]+)
+        \s* (\*)?
+        \s* ([^\*\(\s]+) \s* \(
         \s* ([^\)]+)
     /x;
 
     my $return_val = $1;
-    my $func_name = $2;
-    my $args = $3;
+    my $return_val_star = $2;
+    my $func_name = $3;
+    my $args = $4;
+    $return_val .= ' *' if $return_val_star;
 
     my @tokenized_args = ();
     if( $args && $args ne 'void' ) {
