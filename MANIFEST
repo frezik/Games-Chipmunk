@@ -32,3 +32,4 @@ inc/cpSpace.xsh
 inc/cpSpatialIndex.xsh
 lib/Games/Chipmunk.pm
 lib/Games/Chipmunk/cpVect.pm
+tools/convert_header.pl

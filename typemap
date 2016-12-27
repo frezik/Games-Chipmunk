@@ -46,6 +46,8 @@ cpCollisionPreSolveFunc				T_PTROBJ
 cpCollisionSeparateFunc				T_PTROBJ
 cpCollisionType					T_UV
 cpConstraint *					T_PTROBJ
+cpConstraintPreSolveFunc        T_OPAQUE_STRUCT
+cpConstraintPostSolveFunc       T_OPAQUE_STRUCT
 cpContactPointSet				T_OPAQUE_STRUCT
 cpContactPointSet *				T_PTROBJ
 cpDataPointer                   T_OPAQUE_STRUCT
