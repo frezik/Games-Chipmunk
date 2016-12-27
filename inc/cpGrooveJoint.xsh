@@ -1,29 +1,51 @@
-cpGrooveJoint *
-cpGrooveJointAlloc()
+cpBool
+cpConstraintIsGrooveJoint( constraint )
+    cpConstraint *constraint
 
-cpGrooveJoint *
-cpGrooveJointInit(joint, a, b, groove_a, groove_b, anchr2)
-	cpGrooveJoint *	joint
-	cpBody *	a
-	cpBody *	b
-	cpVect	groove_a
-	cpVect	groove_b
-	cpVect	anchr2
+cpGrooveJoint*
+cpGrooveJointAlloc(  )
 
-cpConstraint *
-cpGrooveJointNew(a, b, groove_a, groove_b, anchr2)
-	cpBody *	a
-	cpBody *	b
-	cpVect	groove_a
-	cpVect	groove_b
-	cpVect	anchr2
+cpGrooveJoint*
+cpGrooveJointInit( joint, a, b, groove_a, groove_b, anchorB )
+    cpGrooveJoint *joint
+    cpBody *a
+    cpBody *b
+    cpVect groove_a
+    cpVect groove_b
+    cpVect anchorB
+
+cpConstraint*
+cpGrooveJointNew( a, b, groove_a, groove_b, anchorB )
+    cpBody *a
+    cpBody *b
+    cpVect groove_a
+    cpVect groove_b
+    cpVect anchorB
+
+cpVect
+cpGrooveJointGetGrooveA( constraint )
+    cpConstraint *constraint
 
 void
-cpGrooveJointSetGrooveA(constraint, value)
-	cpConstraint *	constraint
-	cpVect	value
+cpGrooveJointSetGrooveA( constraint, grooveA )
+    cpConstraint *constraint
+    cpVect grooveA
+
+cpVect
+cpGrooveJointGetGrooveB( constraint )
+    cpConstraint *constraint
 
 void
-cpGrooveJointSetGrooveB(constraint, value)
-	cpConstraint *	constraint
-	cpVect	value
+cpGrooveJointSetGrooveB( constraint, grooveB )
+    cpConstraint *constraint
+    cpVect grooveB
+
+cpVect
+cpGrooveJointGetAnchorB( constraint )
+    cpConstraint *constraint
+
+void
+cpGrooveJointSetAnchorB( constraint, anchorB )
+    cpConstraint *constraint
+    cpVect anchorB
+
