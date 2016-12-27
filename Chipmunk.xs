@@ -30,7 +30,6 @@ INCLUDE: inc/cpPivotJoint.xsh
 INCLUDE: inc/cpPolyline.xsh
 INCLUDE: inc/cpPolyShape.xsh
 INCLUDE: inc/cpRatchetJoint.xsh
-INCLUDE: inc/cpRobust.xsh
 INCLUDE: inc/cpRotaryLimitJoint.xsh
 INCLUDE: inc/cpShape.xsh
 INCLUDE: inc/cpSimpleMotor.xsh
