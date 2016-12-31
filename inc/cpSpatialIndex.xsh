@@ -37,6 +37,13 @@ cpSpatialIndexInsert( index, obj, hashid )
     cpHashValue hashid
 
 void
+cpSpatialIndexCollideStatic(dynamicIndex, staticIndex, func, data)
+    cpSpatialIndex * dynamicIndex
+    cpSpatialIndex * staticIndex
+    cpSpatialIndexQueryFunc func
+    void * data
+
+void
 cpSpatialIndexRemove( index, obj, hashid )
     cpSpatialIndex * index
     void * obj

@@ -46,6 +46,12 @@ void
 cpShapeDestroy(shape)
 	cpShape *	shape
 
+cpShapeFilter
+cpShapeFilterNew(group, categories, mask)
+    cpGroup group
+    cpBitmask categories
+    cpBitmask mask
+
 void
 cpShapeFree(shape)
 	cpShape *	shape

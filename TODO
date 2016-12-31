@@ -1,3 +1,2 @@
-* More complicated conversions:
-    * cpShape
-    * cpSpatialIndex
+* Perl garbage collector hooks for freeing objects
+* Callback functions
