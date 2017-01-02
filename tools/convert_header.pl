@@ -76,12 +76,22 @@ sub parse_header_line
 sub create_xs
 {
     my (@defs) = @_;
+
+    my @funcs;
     foreach my $def (@defs) {
         my $return_val = $def->{return_val};
         my $func_name = $def->{func_name};
         my $args = $def->{args};
         print_xs_def( $return_val, $func_name, $args );
+        push @funcs, $func_name;
     }
+
+    # Print export list at the end of the xs
+    print "# EXPORTS:\n";
+    foreach my $func_name (@funcs) {
+        print "# $func_name\n";
+    }
+
     return;
 }
 

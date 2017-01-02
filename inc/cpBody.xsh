@@ -1,21 +1,21 @@
-cpBody*
+cpBody *
 cpBodyAlloc(  )
 
-cpBody*
+cpBody *
 cpBodyInit( body, mass, moment )
     cpBody *body
     cpFloat mass
     cpFloat moment
 
-cpBody*
+cpBody *
 cpBodyNew( mass, moment )
     cpFloat mass
     cpFloat moment
 
-cpBody*
+cpBody *
 cpBodyNewKinematic(  )
 
-cpBody*
+cpBody *
 cpBodyNewStatic(  )
 
 void
@@ -57,7 +57,7 @@ cpBodySetType( body, type )
     cpBody *body
     cpBodyType type
 
-cpSpace*
+cpSpace *
 cpBodyGetSpace( body )
     cpBody *body
 
@@ -243,3 +243,56 @@ cpBodyEachArbiter( body, func, data )
     cpBodyArbiterIteratorFunc func
     void *data
 
+# EXPORTS:
+# cpBodyAlloc
+# cpBodyInit
+# cpBodyNew
+# cpBodyNewKinematic
+# cpBodyNewStatic
+# cpBodyDestroy
+# cpBodyFree
+# cpBodyActivate
+# cpBodyActivateStatic
+# cpBodySleep
+# cpBodySleepWithGroup
+# cpBodyIsSleeping
+# cpBodyGetType
+# cpBodySetType
+# cpBodyGetSpace
+# cpBodyGetMass
+# cpBodySetMass
+# cpBodyGetMoment
+# cpBodySetMoment
+# cpBodyGetPosition
+# cpBodySetPosition
+# cpBodyGetCenterOfGravity
+# cpBodySetCenterOfGravity
+# cpBodyGetVelocity
+# cpBodySetVelocity
+# cpBodyGetForce
+# cpBodySetForce
+# cpBodyGetAngle
+# cpBodySetAngle
+# cpBodyGetAngularVelocity
+# cpBodySetAngularVelocity
+# cpBodyGetTorque
+# cpBodySetTorque
+# cpBodyGetRotation
+# cpBodyGetUserData
+# cpBodySetUserData
+# cpBodySetVelocityUpdateFunc
+# cpBodySetPositionUpdateFunc
+# cpBodyUpdateVelocity
+# cpBodyUpdatePosition
+# cpBodyLocalToWorld
+# cpBodyWorldToLocal
+# cpBodyApplyForceAtWorldPoint
+# cpBodyApplyForceAtLocalPoint
+# cpBodyApplyImpulseAtWorldPoint
+# cpBodyApplyImpulseAtLocalPoint
+# cpBodyGetVelocityAtWorldPoint
+# cpBodyGetVelocityAtLocalPoint
+# cpBodyKineticEnergy
+# cpBodyEachShape
+# cpBodyEachConstraint
+# cpBodyEachArbiter
