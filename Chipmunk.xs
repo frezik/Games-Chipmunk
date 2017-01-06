@@ -15,6 +15,7 @@ PROTOTYPES: ENABLE
 
 INCLUDE: const-xs.inc
 
+INCLUDE: inc/chipmunk.xsh
 INCLUDE: inc/cpArbiter.xsh
 INCLUDE: inc/cpBB.xsh
 INCLUDE: inc/cpBody.xsh
@@ -43,28 +44,6 @@ _CPVZERO()
     OUTPUT:
         RETVAL
 
-cpFloat
-cpAreaForCircle(r1, r2)
-	cpFloat	r1
-	cpFloat	r2
-
-cpFloat
-cpAreaForPoly(numVerts, verts, radius)
-	int	numVerts
-	const cpVect *	verts
-    cpFloat radius
-
-cpFloat
-cpAreaForSegment(a, b, r)
-	cpVect	a
-	cpVect	b
-	cpFloat	r
-
-cpVect
-cpCentroidForPoly(numVerts, verts)
-	int	numVerts
-	const cpVect *	verts
-
 cpCircleShape *
 cpCircleShapeAlloc()
 
@@ -88,56 +67,6 @@ cpCircleShapeNew(body, radius, offset)
 	cpBody *	body
 	cpFloat	radius
 	cpVect	offset
-
-int
-cpConvexHull(count, verts, result, first, tol)
-	int	count
-	cpVect *	verts
-	cpVect *	result
-	int *	first
-	cpFloat	tol
-
-void
-cpMessage(condition, file, line, isError, isHardError, message, ...)
-	const char *	condition
-	const char *	file
-	int	line
-	int	isError
-	int	isHardError
-	const char *	message
-
-cpFloat
-cpMomentForBox(m, width, height)
-	cpFloat	m
-	cpFloat	width
-	cpFloat	height
-
-cpFloat
-cpMomentForBox2(m, box)
-	cpFloat	m
-	cpBB	box
-
-cpFloat
-cpMomentForCircle(m, r1, r2, offset)
-	cpFloat	m
-	cpFloat	r1
-	cpFloat	r2
-	cpVect	offset
-
-cpFloat
-cpMomentForPoly(m, count, verts, offset, radius)
-	cpFloat	m
-    int count
-    cpVect * verts
-    cpVect offset
-    cpFloat radius
-
-cpFloat
-cpMomentForSegment(m, a, b, radius)
-	cpFloat	m
-    cpVect a
-    cpVect b
-    cpFloat radius
 
 cpVect
 cpvslerp(v1, v2, t)

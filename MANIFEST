@@ -13,6 +13,7 @@ t/020_hello_chipmunk_callback.t
 typemap
 fallback/const-c.inc
 fallback/const-xs.inc
+inc/chipmunk.xsh
 inc/cpArbiter.xsh
 inc/cpBB.xsh
 inc/cpBody.xsh
