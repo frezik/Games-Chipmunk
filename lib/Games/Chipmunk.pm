@@ -449,7 +449,7 @@ our @EXPORT =  qw(
 our @EXPORT_OK = @EXPORT;
 
 
-our $VERSION = '0.01';
+our $VERSION = '0.2';
 
 sub AUTOLOAD {
     # This AUTOLOAD is used to 'autoload' constants from the constant()
@@ -487,13 +487,13 @@ __END__
 
 =head1 NAME
 
-Games::Chipmunk - Perl API for the Chipmunk 2D physics library
+Games::Chipmunk - Perl API for the Chipmunk 2D v7 physics library
 
 =head1 SYNOPSIS
 
-    use Games::Chipmunk;
     use strict;
     use warnings;
+    use Games::Chipmunk;
 
     # cpVect is a 2D vector and cpv() is a shortcut for initializing them.
     my $gravity = cpv(0, -100);
@@ -525,7 +525,7 @@ Games::Chipmunk - Perl API for the Chipmunk 2D physics library
     # The cpSpaceAdd*() functions return the thing that you are adding.
     # It's convenient to create and add an object in one line.
     my $ballBody = cpSpaceAddBody($space, cpBodyNew($mass, $moment));
-    cpBodySetPos($ballBody, cpv(0, 15));
+    cpBodySetPosition($ballBody, cpv(0, 15));
 
     # Now we create the collision shape for the ball.
     # You can create multiple collision shapes that point to the same body.
@@ -537,18 +537,16 @@ Games::Chipmunk - Perl API for the Chipmunk 2D physics library
     # stepping forward through time in small increments called steps.
     # It is *highly* recommended to use a fixed size time step.
     my $timeStep = 1.0/60.0;
+    my $last_y = 0;
 
     # For our tests, we want to check that there was some kind of movement.
     # Problem is, there might not be enough acceleration at the start to actually 
     # move anything.  We'll just do a few runs to prime the system.
     cpSpaceStep($space, $timeStep) for 1 .. 5;
     for(my $time = $timeStep * 5; $time < 2; $time += $timeStep){
-        my $pos = cpBodyGetPos($ballBody);
-        my $vel = cpBodyGetVel($ballBody);
-        printf(
-            'Time is %5.2f. ballBody is at (%5.2f, %5.2f). Its velocity is (%5.2f, %5.2f)' . "\n",
-            $time, $pos->x, $pos->y, $vel->x, $vel->y
-        );
+        my $pos = cpBodyGetPosition($ballBody);
+        my $vel = cpBodyGetVelocity($ballBody);
+        $last_y = $pos->y;
 
         cpSpaceStep($space, $timeStep);
     }
@@ -575,8 +573,6 @@ A few cavets:
 =item * The cpvzero global is accessible as C<$CPV_ZERO>
 
 =item * Anything that requires a callback function is not yet implemented
-
-=item * The API is based on Chipmunk 6, because that's what Ubuntu currently installs from its package manager. There are incompatible changes in Chipmunk 7.
 
 =back
 

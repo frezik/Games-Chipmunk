@@ -1,6 +1,9 @@
 Revision history for Perl extension Games::Chipmunk.
 
-0.01  Fri Sep 23 16:40:32 2016
+0.2 2017-01-09
+    - Convert to v7 API
+
+0.01 2016-11-23
 	- original version; created by h2xs 1.23 with options
 		-n Games::Chipmunk --compat-version=5.8.0 /usr/include/chipmunk/chipmunk.h
 
