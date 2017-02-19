@@ -212,3 +212,36 @@ __perlCpConstraintPreSolveFunc(
 
     call_sv( *perl_func, G_VOID );
 }
+
+
+static void __perlCpConstraintPostSolveFunc(
+    cpConstraint* constraint,
+    cpSpace* space
+);
+static void
+__perlCpConstraintPostSolveFunc(
+    cpConstraint* constraint,
+    cpSpace* space
+) {
+    dTHX;
+    dSP;
+    dMY_CXT;
+    SV ** perl_func = hv_fetch(
+        MY_CXT.constraintPostSolveFuncs,
+        (char*)&constraint,
+        sizeof(constraint),
+        FALSE
+    );
+    if( perl_func == (SV**) NULL ) {
+        croak( "No cpConstraintPostSolveFunc found" );
+    }
+
+    PUSHMARK(SP);
+    EXTEND( SP, 2 );
+    PUSHs( sv_2mortal( sv_setref_pv( newSV(0), "cpConstraintPtr",
+        constraint ) ) );
+    PUSHs( sv_2mortal( sv_setref_pv( newSV(0), "cpSpacePtr", space ) ) );
+    PUTBACK;
+
+    call_sv( *perl_func, G_VOID );
+}

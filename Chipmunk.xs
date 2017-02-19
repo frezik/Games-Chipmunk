@@ -19,6 +19,7 @@ typedef struct {
     HV * bodyArbiterIteratorFuncs;
 
     HV * constraintPreSolveFuncs;
+    HV * constraintPostSolveFuncs;
 } my_cxt_t;
 
 START_MY_CXT

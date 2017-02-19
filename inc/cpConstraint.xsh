@@ -65,11 +65,6 @@ cpConstraintPostSolveFunc
 cpConstraintGetPostSolveFunc( constraint )
     cpConstraint *constraint
 
-void
-cpConstraintSetPostSolveFunc( constraint, postSolveFunc )
-    cpConstraint *constraint
-    cpConstraintPostSolveFunc postSolveFunc
-
 cpDataPointer
 cpConstraintGetUserData( constraint )
     cpConstraint *constraint

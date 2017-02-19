@@ -19,3 +19,22 @@ cpConstraintSetPreSolveFunc( constraint, preSolveFunc )
     );
 
 
+void
+cpConstraintSetPostSolveFunc( constraint, postSolveFunc )
+    cpConstraint *constraint
+    cpConstraintPostSolveFunc postSolveFunc
+  PREINIT:
+    dMY_CXT;
+  CODE:
+    hv_store(
+        MY_CXT.constraintPostSolveFuncs,
+        (char*)&constraint,
+        sizeof(constraint),
+        postSolveFunc,
+        0
+    );
+
+    cpConstraintSetPostSolveFunc(
+        constraint,
+        (cpConstraintPostSolveFunc) __perlCpConstraintPostSolveFunc
+    );
