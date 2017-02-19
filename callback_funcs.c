@@ -245,3 +245,35 @@ __perlCpConstraintPostSolveFunc(
 
     call_sv( *perl_func, G_VOID );
 }
+
+
+static void __perlCpDampedRotarySpringSetSpringTorqueFunc(
+    cpConstraint* spring,
+    cpFloat relativeAngle
+);
+static void
+__perlCpDampedRotarySpringSetSpringTorqueFunc(
+    cpConstraint* spring,
+    cpFloat relativeAngle
+) {
+    dTHX;
+    dSP;
+    dMY_CXT;
+    SV ** perl_func = hv_fetch(
+        MY_CXT.dampedRotarySpringTorqueFuncs,
+        (char*)&spring,
+        sizeof(spring),
+        FALSE
+    );
+    if( perl_func == (SV**) NULL ) {
+        croak( "No cpDampedRotarySpringTorqueFunc found" );
+    }
+
+    PUSHMARK(SP);
+    EXTEND( SP, 2 );
+    PUSHs( sv_2mortal( sv_setref_pv( newSV(0), "cpConstraintPtr", spring ) ) );
+    PUSHs( sv_2mortal( newSVnv( relativeAngle ) ) );
+    PUTBACK;
+
+    call_sv( *perl_func, G_VOID );
+}

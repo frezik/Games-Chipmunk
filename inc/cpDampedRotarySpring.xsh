@@ -1,3 +1,6 @@
+INCLUDE: inc/cpDampedRotarySpring_custom.xsh
+
+
 cpBool
 cpConstraintIsDampedRotarySpring( constraint )
     cpConstraint *constraint
@@ -52,9 +55,3 @@ cpDampedRotarySpringSetDamping( constraint, damping )
 cpDampedRotarySpringTorqueFunc
 cpDampedRotarySpringGetSpringTorqueFunc( constraint )
     cpConstraint *constraint
-
-void
-cpDampedRotarySpringSetSpringTorqueFunc( constraint, springTorqueFunc )
-    cpConstraint *constraint
-    cpDampedRotarySpringTorqueFunc springTorqueFunc
-
