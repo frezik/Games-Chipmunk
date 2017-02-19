@@ -103,3 +103,41 @@ __perlCpBodyShapeIteratorFunc(
 
     call_sv( *perl_func, G_VOID );
 }
+
+
+static void __perlCpBodyConstraintIteratorFunc(
+    cpBody* body,
+    cpConstraint* constraint,
+    void *data
+);
+static void
+__perlCpBodyConstraintIteratorFunc(
+    cpBody* body,
+    cpConstraint* constraint,
+    void *data
+) {
+    dTHX;
+    dSP;
+    dMY_CXT;
+    SV ** perl_func = hv_fetch(
+        MY_CXT.bodyEachConstraintFuncs,
+        (char*)&body,
+        sizeof(body),
+        FALSE
+    );
+    if( perl_func == (SV**) NULL ) {
+        croak( "No cpBodyConstraintIteratorFunc found" );
+    }
+
+    SV * sv_data = (SV*) data;
+
+    PUSHMARK(SP);
+    EXTEND( SP, 3 );
+    PUSHs( sv_2mortal( sv_setref_pv( newSV(0), "cpBodyPtr", body ) ) );
+    PUSHs( sv_2mortal( sv_setref_pv( newSV(0), "cpConstraintPtr",
+        constraint ) ) );
+    PUSHs( sv_2mortal( sv_data ) );
+    PUTBACK;
+
+    call_sv( *perl_func, G_VOID );
+}
