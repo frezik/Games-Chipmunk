@@ -1,3 +1,6 @@
+INCLUDE: inc/cpConstraint_custom.xsh
+
+
 void
 cpConstraintDestroy( constraint )
     cpConstraint *constraint
@@ -57,11 +60,6 @@ cpConstraintSetCollideBodies( constraint, collideBodies )
 cpConstraintPreSolveFunc
 cpConstraintGetPreSolveFunc( constraint )
     cpConstraint *constraint
-
-void
-cpConstraintSetPreSolveFunc( constraint, preSolveFunc )
-    cpConstraint *constraint
-    cpConstraintPreSolveFunc preSolveFunc
 
 cpConstraintPostSolveFunc
 cpConstraintGetPostSolveFunc( constraint )
