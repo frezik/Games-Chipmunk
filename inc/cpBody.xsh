@@ -154,11 +154,6 @@ cpBodySetUserData( body, userData )
     cpDataPointer userData
 
 void
-cpBodySetPositionUpdateFunc( body, positionFunc )
-    cpBody *body
-    cpBodyPositionFunc positionFunc
-
-void
 cpBodyUpdateVelocity( body, gravity, damping, dt )
     cpBody *body
     cpVect gravity
