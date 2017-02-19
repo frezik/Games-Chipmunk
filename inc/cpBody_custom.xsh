@@ -59,3 +59,47 @@ cpBodyEachShape( body, func, data )
         (cpBodyShapeIteratorFunc) __perlCpBodyShapeIteratorFunc,
         data
     );
+
+void
+cpBodyEachConstraints( body, func, data )
+    cpBody *body
+    SV* func
+    SV* data
+  PREINIT:
+    dMY_CXT;
+  CODE:
+    hv_store(
+        MY_CXT.bodyEachConstraintFuncs,
+        (char*)&body,
+        sizeof(body),
+        func,
+        0
+    );
+
+    cpBodyEachConstraint(
+        body,
+        (cpBodyConstraintIteratorFunc) __perlCpBodyConstraintIteratorFunc,
+        data
+    );
+
+void
+cpBodyEachArbiter( body, func, data )
+    cpBody *body
+    SV* func
+    SV* data
+  PREINIT:
+    dMY_CXT;
+  CODE:
+    hv_store(
+        MY_CXT.bodyArbiterIteratorFuncs,
+        (char*)&body,
+        sizeof(body),
+        func,
+        0
+    );
+
+    cpBodyEachArbiter(
+        body,
+        (cpBodyArbiterIteratorFunc) __perlCpBodyArbiterIteratorFunc,
+        data
+    );

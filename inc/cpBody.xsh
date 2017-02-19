@@ -213,18 +213,6 @@ cpFloat
 cpBodyKineticEnergy( body )
     cpBody *body
 
-void
-cpBodyEachConstraint( body, func, data )
-    cpBody *body
-    cpBodyConstraintIteratorFunc func
-    void *data
-
-void
-cpBodyEachArbiter( body, func, data )
-    cpBody *body
-    cpBodyArbiterIteratorFunc func
-    void *data
-
 # EXPORTS:
 # cpBodyAlloc
 # cpBodyInit

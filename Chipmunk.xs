@@ -16,6 +16,7 @@ typedef struct {
     HV * bodyPositionFuncs;
     HV * bodyEachShapeFuncs;
     HV * bodyEachConstraintFuncs;
+    HV * bodyArbiterIteratorFuncs;
 } my_cxt_t;
 
 START_MY_CXT
