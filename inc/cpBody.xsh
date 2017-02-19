@@ -1,3 +1,6 @@
+INCLUDE: inc/cpBody_custom.xsh
+
+
 cpBody *
 cpBodyAlloc(  )
 
@@ -101,11 +104,6 @@ cpVect
 cpBodyGetVelocity( body )
     cpBody *body
 
-void
-cpBodySetVelocity( body, velocity )
-    cpBody *body
-    cpVect velocity
-
 cpVect
 cpBodyGetForce( body )
     cpBody *body
@@ -154,11 +152,6 @@ void
 cpBodySetUserData( body, userData )
     cpBody *body
     cpDataPointer userData
-
-void
-cpBodySetVelocityUpdateFunc( body, velocityFunc )
-    cpBody *body
-    cpBodyVelocityFunc velocityFunc
 
 void
 cpBodySetPositionUpdateFunc( body, positionFunc )

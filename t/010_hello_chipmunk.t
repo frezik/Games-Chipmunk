@@ -4,6 +4,8 @@ use strict;
 use warnings;
 use Games::Chipmunk;
 
+use constant DEBUG => 0;
+
 # cpVect is a 2D vector and cpv() is a shortcut for initializing them.
 my $gravity = cpv(0, -100);
 
@@ -52,19 +54,23 @@ my $last_y = 0;
 # Problem is, there might not be enough acceleration at the start to actually 
 # move anything.  We'll just do a few runs to prime the system.
 cpSpaceStep($space, $timeStep) for 1 .. 5;
+my $iterations = 0;
 for(my $time = $timeStep * 5; $time < 2; $time += $timeStep){
     my $pos = cpBodyGetPosition($ballBody);
     my $vel = cpBodyGetVelocity($ballBody);
     diag( sprintf(
         'Time is %5.2f. ballBody is at (%5.2f, %5.2f). Its velocity is (%5.2f, %5.2f)',
         $time, $pos->x, $pos->y, $vel->x, $vel->y
-    ) );
+    ) ) if DEBUG;
 
     cmp_ok( $pos->y, '!=', $last_y, "Y has moved" );
     $last_y = $pos->y;
 
     cpSpaceStep($space, $timeStep);
+    $iterations++;
 }
+
+cmp_ok( $iterations, '>', 0, "Iterated over code" );
 
 # Clean up our objects and exit!
 cpShapeFree($ballShape);

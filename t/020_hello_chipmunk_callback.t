@@ -1,9 +1,11 @@
 # Perl implementation of the Hello Chipmunk example from the Chipmunk docs,
 # using a callback func to update velocity
-use Test::More skip_all => 'Implement callback func';
+use Test::More;
 use strict;
 use warnings;
 use Games::Chipmunk;
+
+use constant DEBUG => 0;
 
 # cpVect is a 2D vector and cpv() is a shortcut for initializing them.
 my $gravity = cpv(0, -100);
@@ -52,31 +54,32 @@ my $dt = 0;
 my $vel_callback_count = 0;
 my $vel_callback = sub {
     my ($body) = @_;
+    diag( "Velocity update function called" ) if DEBUG;
+    diag( "Body is: $body" ) if DEBUG;
     $vel_callback_count++;
     cpBodyUpdateVelocity( $body, $gravity, 0, $dt );
     return;
 };
 cpBodySetVelocityUpdateFunc( $ballBody, $vel_callback );
+diag( "Set velocity update func" ) if DEBUG;
 
-# For our tests, we want to check that there was some kind of movement.
-# Problem is, there might not be enough acceleration at the start to actually 
-# move anything.  We'll just do a few runs to prime the system.
-cpSpaceStep($space, $timeStep) for 1 .. 5;
 my $time = $timeStep * 5;
 my $prev_time = $time;
+diag( "Beginning time iterations" ) if DEBUG;
 for(; $time < 2; $time += $timeStep){
+    diag( "Time $time, dt $dt, prev time $prev_time" ) if DEBUG;
     my $pos = cpBodyGetPosition($ballBody);
+    diag( "Got body position" ) if DEBUG;
     my $vel = cpBodyGetVelocity($ballBody);
-
-    cmp_ok( $pos->y, '!=', $last_y, "Y has moved" );
-    $last_y = $pos->y;
-
+    diag( "Got body velocity" ) if DEBUG;
     cpSpaceStep($space, $timeStep);
+    diag( "Stepped" ) if DEBUG;
     $dt = $time - $prev_time;
     $prev_time = $time;
 }
 
-cmp_ok( $vel_callback, '>', 2,
+diag( "Completed time iterations" ) if DEBUG;
+cmp_ok( $vel_callback_count, '>', 2,
     "Velocity update callback has been called at least twice" );
 
 # Clean up our objects and exit!
