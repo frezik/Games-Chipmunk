@@ -37,3 +37,25 @@ cpBodySetPositionUpdateFunc( body, func )
         body,
         (cpBodyPositionFunc) __perlCpBodyPositionFunc
     );
+
+void
+cpBodyEachShape( body, func, data )
+    cpBody *body
+    SV* func
+    SV* data
+  PREINIT:
+    dMY_CXT;
+  CODE:
+    hv_store(
+        MY_CXT.bodyEachShapeFuncs,
+        (char*)&body,
+        sizeof(body),
+        func,
+        0
+    );
+
+    cpBodyEachShape(
+        body,
+        (cpBodyShapeIteratorFunc) __perlCpBodyShapeIteratorFunc,
+        data
+    );

@@ -14,6 +14,7 @@
 typedef struct {
     HV * bodyVelocityFuncs;
     HV * bodyPositionFuncs;
+    HV * bodyEachShapeFuncs;
 } my_cxt_t;
 
 START_MY_CXT

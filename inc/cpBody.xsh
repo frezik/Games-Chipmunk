@@ -214,12 +214,6 @@ cpBodyKineticEnergy( body )
     cpBody *body
 
 void
-cpBodyEachShape( body, func, data )
-    cpBody *body
-    cpBodyShapeIteratorFunc func
-    void *data
-
-void
 cpBodyEachConstraint( body, func, data )
     cpBody *body
     cpBodyConstraintIteratorFunc func

@@ -4,6 +4,7 @@ LICENSE
 Makefile.PL
 MANIFEST
 MANIFEST.SKIP
+callback_funcs.c
 ppport.h
 README
 t/001_load.t
@@ -17,6 +18,7 @@ inc/chipmunk.xsh
 inc/cpArbiter.xsh
 inc/cpBB.xsh
 inc/cpBody.xsh
+inc/cpBody_custom.xsh
 inc/cpConstraint.xsh
 inc/cpDampedRotarySpring.xsh
 inc/cpDampedSpring.xsh

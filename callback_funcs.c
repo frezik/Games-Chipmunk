@@ -66,3 +66,40 @@ __perlCpBodyPositionFunc(
 
     call_sv( *perl_func, G_VOID );
 }
+
+
+static void __perlCpBodyShapeIteratorFunc(
+    cpBody* body,
+    cpShape* shape,
+    void *data
+);
+static void
+__perlCpBodyShapeIteratorFunc(
+    cpBody* body,
+    cpShape* shape,
+    void *data
+) {
+    dTHX;
+    dSP;
+    dMY_CXT;
+    SV ** perl_func = hv_fetch(
+        MY_CXT.bodyEachShapeFuncs,
+        (char*)&body,
+        sizeof(body),
+        FALSE
+    );
+    if( perl_func == (SV**) NULL ) {
+        croak( "No cpBodyShapeIteratorFunc found" );
+    }
+
+    SV * sv_data = (SV*) data;
+
+    PUSHMARK(SP);
+    EXTEND( SP, 3 );
+    PUSHs( sv_2mortal( sv_setref_pv( newSV(0), "cpBodyPtr", body ) ) );
+    PUSHs( sv_2mortal( sv_setref_pv( newSV(0), "cpShapePtr", shape ) ) );
+    PUSHs( sv_2mortal( sv_data ) );
+    PUTBACK;
+
+    call_sv( *perl_func, G_VOID );
+}
