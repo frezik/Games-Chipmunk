@@ -1,0 +1,6 @@
+Version 0.3
+===========
+* cpConstraint callbacks
+* cpDampedRotarySpring callbacks
+* cpDampedSpring callbacks
+* cpSpatialIndex callbacks
