@@ -22,6 +22,8 @@ typedef struct {
     HV * constraintPostSolveFuncs;
 
     HV * dampedRotarySpringTorqueFuncs;
+
+    HV * dampedSpringForceFuncs;
 } my_cxt_t;
 
 START_MY_CXT

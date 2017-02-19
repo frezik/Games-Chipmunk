@@ -74,9 +74,3 @@ cpDampedSpringSetDamping( constraint, damping )
 cpDampedSpringForceFunc
 cpDampedSpringGetSpringForceFunc( constraint )
     cpConstraint *constraint
-
-void
-cpDampedSpringSetSpringForceFunc( constraint, springForceFunc )
-    cpConstraint *constraint
-    cpDampedSpringForceFunc springForceFunc
-
