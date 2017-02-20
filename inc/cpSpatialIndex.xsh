@@ -1,3 +1,7 @@
+INCLUDE: inc/cpSpatialIndex_custom.xsh
+
+
+
 void
 cpSpatialIndexFree(index)
 	cpSpatialIndex *	index

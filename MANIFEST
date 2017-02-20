@@ -20,8 +20,11 @@ inc/cpBB.xsh
 inc/cpBody.xsh
 inc/cpBody_custom.xsh
 inc/cpConstraint.xsh
+inc/cpConstraint_custom.xsh
 inc/cpDampedRotarySpring.xsh
+inc/cpDampedRotarySpring_custom.xsh
 inc/cpDampedSpring.xsh
+inc/cpDampedSpring_custom.xsh
 inc/cpGearJoint.xsh
 inc/cpGrooveJoint.xsh
 inc/cpHastySpace.xsh
@@ -36,6 +39,7 @@ inc/cpSimpleMotor.xsh
 inc/cpSlideJoint.xsh
 inc/cpSpace.xsh
 inc/cpSpatialIndex.xsh
+inc/cpSpatialIndex_custom.xsh
 lib/Games/Chipmunk.pm
 lib/Games/Chipmunk/cpVect.pm
 tools/convert_header.pl
