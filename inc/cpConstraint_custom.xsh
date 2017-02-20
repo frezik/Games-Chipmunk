@@ -1,7 +1,7 @@
 void
-cpConstraintSetPreSolveFunc( constraint, preSolveFunc )
+cpConstraintSetPreSolveFunc( constraint, func )
     cpConstraint *constraint
-    cpConstraintPreSolveFunc preSolveFunc
+    SV * func
   PREINIT:
     dMY_CXT;
   CODE:
@@ -9,7 +9,7 @@ cpConstraintSetPreSolveFunc( constraint, preSolveFunc )
         MY_CXT.constraintPreSolveFuncs,
         (char*)&constraint,
         sizeof(constraint),
-        preSolveFunc,
+        func,
         0
     );
 
@@ -20,9 +20,9 @@ cpConstraintSetPreSolveFunc( constraint, preSolveFunc )
 
 
 void
-cpConstraintSetPostSolveFunc( constraint, postSolveFunc )
+cpConstraintSetPostSolveFunc( constraint, func )
     cpConstraint *constraint
-    cpConstraintPostSolveFunc postSolveFunc
+    SV * func
   PREINIT:
     dMY_CXT;
   CODE:
@@ -30,7 +30,7 @@ cpConstraintSetPostSolveFunc( constraint, postSolveFunc )
         MY_CXT.constraintPostSolveFuncs,
         (char*)&constraint,
         sizeof(constraint),
-        postSolveFunc,
+        func,
         0
     );
 

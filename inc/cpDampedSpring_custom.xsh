@@ -1,7 +1,7 @@
 void
-cpDampedSpringSetSpringForceFunc( constraint, springForceFunc )
+cpDampedSpringSetSpringForceFunc( constraint, func )
     cpConstraint *constraint
-    cpDampedSpringForceFunc springForceFunc
+    SV * func
   PREINIT:
     dMY_CXT;
   CODE:
@@ -9,7 +9,7 @@ cpDampedSpringSetSpringForceFunc( constraint, springForceFunc )
         MY_CXT.dampedSpringForceFuncs,
         (char*)&constraint,
         sizeof(constraint),
-        springForceFunc,
+        func,
         0
     );
 
