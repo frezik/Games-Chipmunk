@@ -27,7 +27,7 @@ __perlCpBodyVelocityFunc(
     PUSHMARK(SP);
     EXTEND( SP, 4 );
     PUSHs( sv_2mortal( sv_setref_pv( newSV(0), "cpBodyPtr", body ) ) );
-    PUSHs( sv_2mortal( sv_setref_pv( newSV(0), "cpGravityPtr", &gravity ) ) );
+    PUSHs( sv_2mortal( sv_setref_pv( newSV(0), "cpVectPtr", &gravity ) ) );
     PUSHs( sv_2mortal( newSVnv( damping ) ) );
     PUSHs( sv_2mortal( newSVnv( dt ) ) );
     PUTBACK;

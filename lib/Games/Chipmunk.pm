@@ -449,7 +449,7 @@ our @EXPORT =  qw(
 our @EXPORT_OK = @EXPORT;
 
 
-our $VERSION = '0.3';
+our $VERSION = '0.4';
 
 sub AUTOLOAD {
     # This AUTOLOAD is used to 'autoload' constants from the constant()
@@ -572,13 +572,21 @@ A few cavets:
 
 =item * The cpvzero global is accessible as C<$CPV_ZERO>
 
-=item * Anything that requires a callback function is not yet implemented
+=item * Callback functions in the C<cpSpatialIndex> header are not implemented
 
 =back
 
+Callbacks elsewhere in the library can all take Perl functions. For example:
+
+    cpBodySetVelocityUpdateFunc( $body, sub {
+        my ($body, $gravity, $damping, $dt) = @_;
+        cpBodyUpdateVelocity( $body, $gravity, 0, $dt );
+        return;
+    });
+
 =head1 TODO
 
-Write the callback function mapping
+Write the callback function mappings inside C<cpSpatialIndex>
 
 Convert to Dist::Zilla
 
