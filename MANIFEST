@@ -13,6 +13,7 @@ t/010_hello_chipmunk.t
 t/020_hello_chipmunk_callback.t
 TODO
 typemap
+examples/pachinko.pl
 fallback/const-c.inc
 fallback/const-xs.inc
 inc/chipmunk.xsh
