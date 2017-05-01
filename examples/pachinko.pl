@@ -379,14 +379,35 @@ sub make_app
         });
         push @shapes, $ball;
 
-        my $pin = Local::StaticCircle->new({
-            x => WIDTH / 2 - 5,
-            y => HEIGHT / 2,
-            r => WIDTH / 40,
-            space => $space,
-            friction => 0.1,
-        });
-        push @shapes, $pin;
+        make_pins( 5, 10 );
+
+        return;
+    }
+
+    sub make_pins
+    {
+        my ($rows, $cols) = @_;
+
+        my $y = HEIGHT / 2 - 200;
+        foreach my $row (1 .. $rows) {
+            my $x = WIDTH / 2 - 400;
+            $x += 50 if $row % 2 == 0; # offset even rows
+
+            foreach my $col (1 .. $cols) {
+                my $pin = Local::StaticCircle->new({
+                    x => $x,
+                    y => $y,
+                    r => 5,
+                    space => $space,
+                    friction => 0.1,
+                });
+                push @shapes, $pin;
+
+                $x += 110;
+            }
+
+            $y += 80;
+        }
 
         return;
     }
