@@ -390,15 +390,6 @@ sub make_app
         });
         push @shapes, $right_wall;
 
-        my $ball = Local::Circle->new({
-            x => WIDTH / 2,
-            y => 10,
-            r => WIDTH / 20,
-            space => $space,
-            friction => 0.1,
-        });
-        push @shapes, $ball;
-
         make_pins( 5, 10 );
 
         return;
@@ -442,22 +433,36 @@ sub make_app
     sub on_move
     {
         my ($step, $app, $t) = @_;
-        my $time = STEP_TIME * $t;
-        cpSpaceStep( $space, $time );
+        cpSpaceStep( $space, $step );
 
         foreach my $shape (@shapes) {
-            $shape->apply_physics( $time );
+            $shape->apply_physics( $step );
         }
 
         return;
     }
-}
 
-sub on_event
-{
-    my ($event, $app) = @_;
+    sub on_event
+    {
+        my ($event, $app) = @_;
 
-    return;
+        if( $event->type == SDL_MOUSEBUTTONDOWN 
+            && $event->button_button == SDL_BUTTON_LEFT ) {
+            my $x = $event->button_x;
+            my $y = $event->button_y;
+
+            my $ball = Local::Circle->new({
+                x => $x,
+                y => $y,
+                r => WIDTH / 20,
+                space => $space,
+                friction => 0.1,
+            });
+            push @shapes, $ball;
+        }
+
+        return;
+    }
 }
 
 sub on_show
