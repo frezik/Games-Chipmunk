@@ -370,6 +370,26 @@ sub make_app
         });
         push @shapes, $ground;
 
+        my $left_wall = Local::Line->new({
+            x1 => 0,
+            y1 => 0,
+            x2 => 0,
+            y2 => HEIGHT,
+            space => $space,
+            friction => 0.2,
+        });
+        push @shapes, $left_wall;
+
+        my $right_wall = Local::Line->new({
+            x1 => WIDTH,
+            y1 => 0,
+            x2 => WIDTH,
+            y2 => HEIGHT,
+            space => $space,
+            friction => 0.2,
+        });
+        push @shapes, $right_wall;
+
         my $ball = Local::Circle->new({
             x => WIDTH / 2,
             y => 10,
@@ -390,7 +410,7 @@ sub make_app
 
         my $y = HEIGHT / 2 - 200;
         foreach my $row (1 .. $rows) {
-            my $x = WIDTH / 2 - 400;
+            my $x = WIDTH / 2 - 385;
             $x += 50 if $row % 2 == 0; # offset even rows
 
             foreach my $col (1 .. $cols) {
