@@ -40,6 +40,15 @@ use constant WIDTH => 800;
 use constant HEIGHT => 800;
 use constant TITLE => 'Games::Chipmunk Pachinko Example';
 
+use constant BALL_RADIUS => WIDTH / 20;
+use constant PIN_START_Y => 200;
+use constant PIN_START_X => 10;
+use constant PIN_EVEN_OFFSET => 50;
+use constant PIN_X_SPACING => 100;
+use constant PIN_Y_SPACING => 80;
+use constant PIN_ROWS => 5;
+use constant PIN_COLS => 10;
+
 my $GRAVITY = cpv( 0, 100 );
 my $SPACE;
 
@@ -283,7 +292,7 @@ sub screen_to_opengl_coord_x
 sub screen_to_opengl_coord_abs
 {
     my ($coord) = @_;
-    return map_range( 0, WIDTH, 0, 1, $coord );
+    return map_range( 0, WIDTH, 0, 1, $coord ) * 2;
 }
 
 sub screen_to_opengl_coord_y
@@ -390,7 +399,7 @@ sub make_app
         });
         push @shapes, $right_wall;
 
-        make_pins( 5, 10 );
+        make_pins( PIN_ROWS, PIN_COLS );
 
         return;
     }
@@ -399,25 +408,25 @@ sub make_app
     {
         my ($rows, $cols) = @_;
 
-        my $y = HEIGHT / 2 - 200;
+        my $y = PIN_START_Y;
         foreach my $row (1 .. $rows) {
-            my $x = WIDTH / 2 - 385;
-            $x += 50 if $row % 2 == 0; # offset even rows
+            my $x = PIN_START_X;
+            $x += PIN_EVEN_OFFSET if $row % 2 == 0; # offset even rows
 
             foreach my $col (1 .. $cols) {
                 my $pin = Local::StaticCircle->new({
                     x => $x,
                     y => $y,
-                    r => 5,
+                    r => 3,
                     space => $space,
                     friction => 0.1,
                 });
                 push @shapes, $pin;
 
-                $x += 110;
+                $x += PIN_X_SPACING;
             }
 
-            $y += 80;
+            $y += PIN_Y_SPACING;
         }
 
         return;
@@ -454,7 +463,7 @@ sub make_app
             my $ball = Local::Circle->new({
                 x => $x,
                 y => $y,
-                r => WIDTH / 20,
+                r => BALL_RADIUS,
                 space => $space,
                 friction => 0.1,
             });
